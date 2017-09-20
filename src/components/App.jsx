@@ -15,18 +15,25 @@ const LeftPanel = (props, context) => (
 			<Pages>
 				<Page>
 					{context.framework7AppContext.theme.material ? <Navbar title="Left Panel"></Navbar> : null}
-					<ContentBlock inner>
+					{/*<ContentBlock inner>
 						<p>Left panel content goes here</p>
 					</ContentBlock>
 					<ContentBlockTitle>Load page in panel</ContentBlockTitle>
 					<List>
 						<ListItem link="/about/" title="About"></ListItem>
 						<ListItem link="/form/" title="Form"></ListItem>
-					</List>
-					<ContentBlockTitle>Load page in main view</ContentBlockTitle>
+					</List>*/}
+					<ContentBlockTitle>ГЛАВНЫЕ НОВОСТИ</ContentBlockTitle>
 					<List>
-						<ListItem link="/about/" title="About" linkView="#main-view" linkClosePanel></ListItem>
-						<ListItem link="/form/" title="Form" linkView="#main-view" linkClosePanel></ListItem>
+						{/*<ListItem link="/about/" title="About" linkView="#main-view" linkClosePanel></ListItem>*/}
+						{/*<ListItem link="/form/" title="Form" linkView="#main-view" linkClosePanel></ListItem>*/}
+						<ListItem link="/ukraine/" title="УКРАИНА" linkView="#main-view" linkClosePanel></ListItem>
+						<ListItem link="/emergencies/" title="ЧРЕЗВЫЧАЙНЫЕ ПРОИСШЕСТВИЯ" linkView="#main-view" linkClosePanel></ListItem>
+						<ListItem link="/lol/" title="LOL" linkView="#main-view" linkClosePanel></ListItem>
+						<ListItem link="/world/" title="МИР" linkView="#main-view" linkClosePanel></ListItem>
+						<ListItem link="/lifestyle/" title="LIFESTYLE" linkView="#main-view" linkClosePanel></ListItem>
+						<ListItem link="/sport/" title="СПОРТ" linkView="#main-view" linkClosePanel></ListItem>
+						<ListItem link="/showbusiness/" title="ШОУБИЗНЕС" linkView="#main-view" linkClosePanel></ListItem>
 					</List>
 				</Page>
 			</Pages>
@@ -79,9 +86,9 @@ const MainViews = (props, context) => {
 							<Link icon="icon-bars" openPanel="left" />
 						</NavLeft>
 						<NavCenter sliding>Framework7</NavCenter>
-						<NavRight>
+						{/*<NavRight>
 							<Link icon="icon-bars" openPanel="right"></Link>
-						</NavRight>
+						</NavRight>*/}
 					</Navbar>
 				) : null}
 				{/* Pages */}
@@ -106,29 +113,9 @@ const MainViews = (props, context) => {
 						<List>
 							<ListItem link="/about/" title="About"></ListItem>
 							<ListItem link="/form/" title="Form"></ListItem>							
+							<ListItem link="/ukraine/" title="Ukraine"></ListItem>							
 						</List>
-						<ContentBlockTitle>Side Panels</ContentBlockTitle>
-						<ContentBlock>
-							<GridRow>
-								<GridCol width={50}>
-									<Button openPanel="left">Left Panel</Button>
-								</GridCol>
-								<GridCol width={50}>
-									<Button openPanel="right">Right Panel</Button>
-								</GridCol>
-							</GridRow>
-						</ContentBlock>
-						<ContentBlockTitle>Modals</ContentBlockTitle>
-						<ContentBlock>
-							<GridRow>
-								<GridCol width={50}>
-									<Button openPopup="#popup">Popup</Button>
-								</GridCol>
-								<GridCol width={50}>
-									<Button openLoginScreen="#login-screen">Login Screen</Button>
-								</GridCol>
-							</GridRow>
-						</ContentBlock>
+						
 					</Page>
 				</Pages>
 			</View>
