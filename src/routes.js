@@ -1,5 +1,5 @@
 import {About} from './components/pages/About';
-import {Form} from './components/pages/Form';
+import NewsView from './components/pages/NewsView';
 import {Ukraine} from './components/pages/Ukraine';
 import {Emergencies} from './components/pages/Emergencies';
 import {World} from './components/pages/World';
@@ -12,8 +12,8 @@ export const routes = [{
     path: '/about/',
     component: About
 }, {
-    path: '/:category/:postId',
-    component: Form
+    path: '/:idx/:postId/',
+    component: NewsView
 }, {
     path: '/ukraine/',
     component: Ukraine
@@ -35,7 +35,4 @@ export const routes = [{
 }, {
     path: '/showbusiness/',
     component: Showbusiness
-}, {
-    path: '/form/',
-    component: Form
 }];

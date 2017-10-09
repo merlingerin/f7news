@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="55px" viewBox="0 0 55 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/55x55/video</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/55x55/video">
+            <g id="Icon">
+                <path d="M54.1345219,27.0682889 C54.1345219,42.0157733 42.0157733,54.1345219 27.0682889,54.1345219 C12.1187486,54.1345219 0,42.0157733 0,27.0682889 C0,12.1187486 12.1187486,0 27.0682889,0 C42.0157733,0 54.1345219,12.1187486 54.1345219,27.0682889" id="Fill-1" fill-opacity="0.3" fill="#FFFFFF"></path>
+                <path d="M23.5714286,19.884663 L23.5714286,35.115337 C23.5714286,35.8295501 24.6774314,36.1866567 25.3270539,35.6822236 L35.1022277,28.0660859 C35.5051581,27.7538179 35.5051581,27.2461821 35.1022277,26.9339141 L25.3270539,19.3177764 C24.6774314,18.8133433 23.5714286,19.1704499 23.5714286,19.884663" id="Fill-4" fill="#FC5300"></path>
+            </g>
+        </g>
+    </g>
+</svg>

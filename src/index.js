@@ -1,18 +1,23 @@
-import 'framework7/dist/css/framework7.ios.min.css';
-import 'framework7/dist/css/framework7.ios.colors.min.css';
+// import 'framework7/dist/css/framework7.ios.min.css';
+// import 'framework7/dist/css/framework7.ios.colors.min.css';
 
-/* OR for Material Theme:
+ // OR for Material Theme:
 import 'framework7/dist/css/framework7.material.min.css'
 import 'framework7/dist/css/framework7.material.colors.min.css'
-*/
+
 
 import './css/app.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {App} from './components/App';
+import {Provider} from 'react-redux';
+import {store} from './store';
 
+console.log(store.getState());
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );

@@ -1,3 +1,591 @@
 /* =========
 Your custom styles go here
  ========= */
+@font-face {
+  font-family: 'Framework7 Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/Framework7Icons-Regular.eot");
+  src: local('Framework7 Icons'),
+     local('Framework7Icons-Regular'),
+     url("../fonts/Framework7Icons-Regular.woff2") format("woff2"),
+     url("../fonts/Framework7Icons-Regular.woff") format("woff"),
+     url("../fonts/Framework7Icons-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'ProxymaNova';
+    src: url('../fonts/ProximaNova-Bold/ProximaNova-Bold.eot');
+    src: url('../fonts/ProximaNova-Bold/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ProximaNova-Bold/ProximaNova-Bold.woff') format('woff'),
+         url('../fonts/ProximaNova-Bold/ProximaNova-Bold.ttf') format('truetype'),
+         url('../fonts/ProximaNova-Bold/ProximaNova-Bold.svg#ProxymaNova') format('svg');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProxymaNova';
+    src: url('../fonts/ProximaNova-Semibold/ProximaNova-Semibold.eot');
+    src: url('../fonts/ProximaNova-Semibold/ProximaNova-Semibold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ProximaNova-Semibold/ProximaNova-Semibold.woff') format('woff'),
+         url('../fonts/ProximaNova-Semibold/ProximaNova-Semibold.ttf') format('truetype'),
+         url('../fonts/ProximaNova-Semibold/ProximaNova-Semibold.svg#ProxymaNova') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProxymaNova';
+    src: url('../fonts/proxymanovaregular/ProximaNova-Regular.eot');
+    src: url('../fonts/proxymanovaregular/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/proxymanovaregular/ProximaNova-Regular.woff') format('woff'),
+         url('../fonts/proxymanovaregular/ProximaNova-Regular.ttf') format('truetype'),
+         url('../fonts/proxymanovaregular/ProximaNova-Regular.svg#ProxymaNova') format('svg');
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fontello';
+    src: url('../fonts/icons/fontello.eot?56904782');
+    src: url('../fonts/icons/fontello.eot?56904782#iefix') format('embedded-opentype'),
+         url('../fonts/icons/fontello.woff2?56904782') format('woff2'),
+         url('../fonts/icons/fontello.woff?56904782') format('woff'),
+         url('../fonts/icons/fontello.ttf?56904782') format('truetype'),
+         url('../fonts/icons/fontello.svg?56904782#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  .fontello {
+      font-family: 'fontello';
+
+  }
+   
+   [class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+   
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+   
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+   
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+   
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+   
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+   
+    /* Font smoothing. That was taken from TWBS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  }
+   
+  /* .icon-share:before { content: '\e800'; } 
+  .icon-fontsize:before { content: '\e801'; } 
+  .icon-star:before { content: '\e802'; } 
+  .icon-trash:before { content: '\e803'; }  */
+
+  /* .icon-share:before { content: ''; width: 25px; height: 25px; background-image: url('../') } 
+  .icon-fontsize:before { content: ''; } 
+  .icon-star:before { content: ''; } 
+  .icon-trash:before { content: '\e803'; }  */
+.navbar-icon {
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.navbar a.link:before, .subnavbar a.link:before, .toolbar a.link:before {
+    left: -32%;
+}
+
+.navbar-icon i {
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body * {
+    font-family: 'ProxymaNova';
+    font-weight: 400;
+}
+
+span, div, p, hr,em, h1,h2,h3,h4,h5,h6, cite, br, {
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+iframe {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* .NewsView .page-content {
+    padding: 0!important;
+}
+
+.NewsView__navbar {
+    background: transparent!important;
+    box-shadow: none!important;
+} */
+
+.f7-icons, .framework7-icons {
+  font-family: 'Framework7 Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 25px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+}
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+ .navbar, .subnavbar, .toolbar {
+ 	background: #ff521d;
+ }
+
+ .panel-left .ictv-logo {
+     box-shadow: none;
+     min-height: 150px;
+ }
+
+ .ictv-logo__container {
+ 	/* background-image: url('../images/icons/Logo 130x30.svg'); */
+    width: 130pt;
+    height: 30pt;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+    box-shadow: none;
+ }
+
+ .navbar__sublink-title {
+
+ }
+ /* .loading-preloader {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+ } */
+
+.news-list {
+	/* padding-left: 10px;
+    padding-right: 10px; */
+    margin: 0;
+}
+
+.panel {
+    width: 340px;
+}
+
+.panel-left {
+    padding: 40px 20px;
+}
+
+.panel.layout-dark {
+    background-color: transparent;
+}
+
+.panel-left .page {
+
+}
+
+.panel-left .list-block {
+    margin: 0;
+}
+
+ .navbar__link-title .item-title {
+     font-size: 16px;
+     font-weight: 600;
+     letter-spacing: 1px;
+ }
+
+.navbar__sublink-title .item-title {
+    font-size: 14px;
+    line-height: 26px;
+    font-weight: 600;    
+    letter-spacing: 0.5px;    
+    color: #000000;
+}
+
+.navbar__sublink-title .item-content {
+    padding-left: 30px;
+    line-height: 16px;
+    min-height: 20px;
+}
+
+.navbar__sublink-title .item-link .item-inner {
+    background-image: none;
+    padding: 0;
+}
+
+.navbar__link-title .item-inner {
+	background-image: none!important;
+}
+
+.ListItem__container {
+	position: relative;
+}
+
+.Card {
+	display: flex;
+	flex-flow: row wrap;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.Card-container {
+    position: relative;
+}
+
+.Card .item-inner:after {
+    display: none;
+}
+
+.Card .item-link {
+	flex: 100%;
+}
+
+.Card .item-content {
+    padding-left: 0;
+    position: relative;
+}
+
+.Card .card__footer {
+    position: relative;
+}
+
+.Card .card__category {
+    position: absolute;
+    top: -11pt;
+    z-index: 999;
+    background: black;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 20pt;
+    max-height: 20pt;
+    padding: 0 5pt;
+    font-size: 10pt;
+}
+    
+
+.Card .item-inner {
+	padding: 0!important;
+	background-image: none!important;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.Card .card__footer {
+	padding: 15pt 16pt;
+}
+
+
+/*content-block of news*/
+.NewsView .content-block h1 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    padding: 15px 0 10px;
+}
+
+.NewsView .content-block h2 {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+    padding: 10px 0 5px;
+    text-align: left!important;
+}
+
+.NewsView .content-block h3 {
+
+}
+
+.NewsView .page-content {
+    /* padding: 0!important; */
+}
+
+
+.NewsView__img img{
+    max-width: 100%;
+    height: auto;
+}
+
+.NewsView .content-block-inner:before,
+.NewsView .content-block-inner:after {
+    content: none;
+}
+
+.NewsView .content-block {
+    margin: 0!important;
+    padding: 0 18px 30px!important;
+}
+
+.NewsView a {
+    color: #212121;
+}
+
+.NewsView .content-block-inner {
+    padding: 0;
+    margin: 0;
+}
+
+.NewsView .news__title {
+    line-height: 24px;
+    font-weight: 700;
+    font-size: 20px;
+    padding-bottom: 14px;
+    padding-top: 50px;
+}
+
+.NewsView a,
+.NewsView p,
+.NewsView .content-block-inner {
+    line-height: 24px;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    text-align: left!important;
+}
+
+.NewsView .bigFont .news__title {
+    font-size: 26px;
+}
+
+.NewsView .content-block.bigFont a,
+.NewsView .content-block.bigFont p,
+.NewsView .content-block.bigFont .content-block-inner {
+    font-size: 20px;
+}
+.NewsView .card__category {
+    position: absolute;
+    top: -15pt;
+    z-index: 999;
+    background: black;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 20pt;
+    max-height: 20pt;
+    padding: 0 5pt;
+    font-size: 10pt;
+}
+/*/.end content-block of news*/
+
+.img__container,
+.video__container {
+	flex: 1 0 100%;
+	/* background-image: url('http://lorempixel.com/500/350/sports/'); */
+    height: 180pt;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.img__container img {
+    width: 100%;
+    height: auto;
+    display: none;
+}
+
+.save-news {
+    width: 50px;
+    line-height: 50px;
+	background-color: #fff;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	color: red;
+	position: absolute!important;
+    right: 15px;
+    top: 10px;
+    z-index: 99;
+    font-size: 32px;
+    text-align: center;
+}
+
+.ictv-icon {
+    width: 25pt;
+    height: 25pt;
+    background-image: url('../images/star-white@3x.png');
+}
+
+.ictv-icon.active {
+    background-image: url('../images/star@3x.png');    
+}
+
+.save-news:after {
+	display: none;
+	
+}
+
+.save-news .item-content {
+	padding: 0;
+    text-align: center;
+    min-height: auto;
+    height: 25px;
+    width: 25px;
+}
+
+.save-news .item-inner {
+padding: 0;
+    margin: 0;
+    background-image: none;
+    background-position: center;
+    background: 100%;
+    display: block;
+    height: 25px;
+    min-height: auto;
+    width: 100%;
+}
+
+.panel-left .navbar-through.view .page-content {
+    background-color: #ff521d;
+    padding-top: 150px;
+}
+
+.panel-left .list-block li {
+    max-height: 30px;
+}
+
+.panel-left .list-block ul:before,
+.panel-left .list-block ul:after,
+.panel-left .item-inner:after {
+    display: none;
+}
+
+.panel-left {
+    z-index: 99999;
+}
+
+body.with-panel-left-reveal .views {
+    transform: translate3d(0,0,0);
+}
+
+body.with-panel-left-reveal .panel-overlay {
+    background: rgba(255,255,255, .8);
+    opacity: 1;
+}
+
+.panel-left {
+    display: block!important;
+    transform: translate3d(0,-100%,0);
+}
+
+.mainView-title {
+    padding: 0;
+    margin: 0;
+    font-size: 14pt;
+    line-height: 16pt;
+}
+
+body.with-panel-left-reveal .panel-overlay {
+    transform: translate3d(0,0,0);
+}
+
+.panel-left.active {
+    box-shadow: none;
+    background-color: transparent!important;
+    transform: translate3d(0,0,0);
+}
+
+
+
+/*TESTED MENU*/
+/* .panel-left,
+.panel-left .view,
+.panel-left .page,
+.panel-left .page-content  {
+    background-color: transparent!important;
+} */
+
+.panel-left .page-content ul {
+    background-color: #ff521d;
+    /* padding: 0 0 76pt 53pt; */
+}
+.panel-left .list-block {
+    
+}
+
+/* .ictv-logo {
+    display: none;
+} */
+
+/*END TESTED MENU*/
+
+.preloader {
+    width: 47px;
+    height: 47px;
+    margin: 15px auto;
+}
+
+.preloader-inner .preloader-inner-half-circle {
+    border: 4px solid #FF521C;
+}
+
+.pull-to-refresh-layer .pull-to-refresh-arrow {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'-80%204%2024%2024'%3E%3Cpath%20d%3D'M-69%2C8v12.2l-5.6-5.6L-76%2C16l8%2C8l8-8l-1.4-1.4l-5.6%2C5.6V8H-69z'%20fill%3D'%23ff521c'%2F%3E%3C%2Fsvg%3E")
+}
+
+.pull-to-refresh-layer .preloader {
+    display: none!important;
+}
+
+/* Similarly: */
+@media (-webkit-max-device-pixel-ratio: 2) {
+}
+/* ... is equivalent to: */
+@media (max-resolution: 2dppx) {
+
+}

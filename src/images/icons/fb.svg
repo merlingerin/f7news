@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon/36x36/fb</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/36x36/fb">
+            <g id="fb">
+                <rect id="Rectangle-4" fill="#1F2328" x="0" y="0" width="36" height="36"></rect>
+                <path d="M18.5435561,25 L18.5435561,18.6139526 L20.6074106,18.6139526 L20.9163964,16.1252255 L18.5435561,16.1252255 L18.5435561,14.536202 C18.5435561,13.8156403 18.7362536,13.3245942 19.7311236,13.3245942 L21,13.3240144 L21,11.0981062 C20.7804476,11.067766 20.0272713,11 19.1510464,11 C17.3215672,11 16.0691262,12.1598171 16.0691262,14.2898093 L16.0691262,16.1252255 L14,16.1252255 L14,18.6139526 L16.0691262,18.6139526 L16.0691262,25 L18.5435561,25" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>
