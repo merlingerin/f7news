@@ -24,21 +24,85 @@ export default class NewsView extends React.Component {
     }
 
     render() {
-        console.log('store.getState()', store.getState());
         const title = ReactHtmlParser(this.state.content.body.title);
         const Itext = this.state.content.body.text.replace(this.state.content.body.text.slice(this.state.content.body.text.indexOf('<iframe'), this.state.content.body.text.indexOf('</iframe>')), '');
         // Itext.replace(Itext.slice(Itext))
         const caption = this.state.content.body.text
-                        .replace(/\[caption.+\[\/caption\]/g, '')
-                        .replace(/\<a.\>\<\/a\>/g, '')
-                        .replace(/\<iframe.+\<\/iframe\>/g, '')
-                        .replace(/\\n/g, '')
-                        .replace(/\<strong\>Смотрите\<\/strong\>.+\<\/a\>\<\/span\>/g, '<p class="read-also">$&!</p>')
-                        .replace(/\<blockquote.+\<\/blockquote\>/g, '');
+                        .replace(/\[caption.+\[\/caption\]/ig, '')
+                        .replace(/\<a.\>\<\/a\>/ig, '')
+                        .replace(/\<iframe.+\<\/iframe\>/ig, '')
+                        .replace(/\<strong\>Фото.+\<\/a\>/ig, '')                        
+                        .replace(/\<strong\>Смотрите.+\<\/a\>\<\/span\>/ig, '<p class="read-also">$&</p>')
+                        .replace(/\<strong\>Читайте.+\<\/a\>\<\/span\>/ig, '<p class="read-also">$&</p>')
+                        .replace(/\<strong\>Смотрите:\<\/strong\>.+\<\/a\>/ig, '<p class="read-also">$&</p>')
+                        .replace(/\<strong\>Читайте:\<\/strong\>.+\<\/a\>/ig, '<p class="read-also">$&</p>')
+                        .replace(/\<strong\>Читайте\<\/strong\>:/ig, '<strong>Читайте:</strong>')
+                        .replace(/\<strong\>Смотрите\<\/strong\>:/ig, '<strong>Смотрите:</strong>')
+                        .replace(/&nbsp;/ig, '')
+                        .replace(/(?:\r\n|\r|\n)/g, '<br />')
+                        // .replace(/[(?:\r\n|\r|\n)]{5}/g, '')
+                        .replace(/\↵/ig, '')
+                        .replace(/\\n/ig, '')                        
+                        .replace(/\<img.+\>/ig, '')
+                        .replace(/\<script.+\<\/script\>/ig, '')
+                        .replace(/\<blockquote.+blockquote\>/ig, '')
+                        .replace(/\<blockquote.+\<\/blockquote\>/ig, '')
+                        .replace(/\<p class=\"read-also\"\>.+\<\/p\>/ig, '');
+        console.log('this.state.content.body.text', this.state.content.body.text.match(/(?:\r\n|\r|\n)/g));
+        // const text = ReactHtmlParser(caption, {
+        //     transform: function(node) {
+        //     if (node.type === 'tag' && node.props.className === 'read-also') {
+        //         return null;
+        //     }
+        //     if (node.type === 'tag' && node.name === 'blockquote') {
+        //       return null;
+        //     }
+        //     if (node.type === 'tag' && node.name === 'iframe') {
+        //         return null;
+        //     }
+        //     if(node.data !== undefined) {
+        //         console.log('BEFORE', node.data);
+                
+        //         node.data
+        //             .replace(/&nbsp;/ig, '')
+        //             .replace(/(\r\n|\n|\r)/gm, '')
+        //             .replace(/\↵/ig, '')
+        //             .replace(/\!/ig, '')
+        //             console.log('AFTER', node.data);
+        //     }
+        //   }}); 
 
-        const text = ReactHtmlParser(caption);
-        // console.log('Text', new Date(this.state.content.body.date).getDate());
+        // const contentBlock = (type) => {
+        //     if(type === 'videos') {
+        //         return (
+        //             <div className="NewsView__img NewsView__video">
+        //                 <div className="video-container">{this.state.content.body.linkVideo}</div>
+        //             </div>
+        //         )
+        //     } else {
+        //         return (
+        //             <div className="NewsView__img">
+        //                 <img src={this.state.content.body.linkImg} alt={this.state.content.category} />
+        //             </div>
+        //         )
+        //     }
+            
+        // };
+            
+        let contentBlock = (type) => {
+            if(this.state.content.type === 'videos') {
+                return (<div className="NewsView__img NewsView__video">
+                                    <iframe width={window.innerWidth} height={window.innerWidth / 1.5} src={`${this.state.content.body.linkVideo}?rel=0&amp;controls=0&amp;showinfo=0`} frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                                </div>)
+    
+            } else {
+                return (<div className="NewsView__img">
+                                    <img src={this.state.content.body.linkImg} alt={this.state.content.category} />
+                                </div>)
+            }
+        }
 
+        console.log(window.innerWidth);
         return (
             <Page className="NewsView" hideBarsOnScroll>
                 <Navbar className="NewsView__navbar">
@@ -56,15 +120,12 @@ export default class NewsView extends React.Component {
                         </a>
                     </NavRight> 
                 </Navbar>
-                <div className="NewsView__img">
-                    <img src={this.state.content.body.linkImg} alt={this.state.content.category} />
-                </div>
+                {contentBlock(this.state.content.type)}
                 <ContentBlock className={this.state.bigFont ? 'bigFont' : ''} inner>
                     <div className="card__category">{this.state.content.category}</div>
                     <div className="card__date">{this.state.content.category}</div>
                     <h3 className="news__title">{title}</h3>
-                    {text}
-                    {/* <p dangerouslySetInnerHTML={{ __html: this.state.content.body.text }}></p> */}
+                    {<p dangerouslySetInnerHTML={{ __html: caption }}></p>}                
                 </ContentBlock>
             </Page>
         )

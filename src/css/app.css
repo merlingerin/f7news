@@ -368,7 +368,7 @@ body {
 
 .NewsView .content-block {
     margin: 0!important;
-    padding: 0 18px 30px!important;
+    padding: 0 30px 30px!important;
 }
 
 .NewsView a {
@@ -393,6 +393,7 @@ body {
 .NewsView .content-block-inner {
     line-height: 24px;
     font-size: 16px;
+    letter-spacing: .5px;
     padding: 0;
     margin: 0;
     text-align: left!important;
@@ -400,6 +401,35 @@ body {
 
 .NewsView .bigFont .news__title {
     font-size: 26px;
+}
+
+.NewsView .read-also {
+    margin: 15px 0;
+}
+
+.NewsView strong {
+    font-weight: 600;
+}
+
+.NewsView ul {
+    padding-left: 30px;
+}
+
+.ytp-icon-large-play-button-hover {
+    background-color: black;
+}
+
+.read-also strong {
+    background-color: rgb(252,83,0);
+    color: #fff;
+    font-size: 15px;
+    padding: 2px 5px;
+}
+
+.read-also a {
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: .5px;
 }
 
 .NewsView .content-block.bigFont a,

@@ -5,8 +5,8 @@ import logo from '../../images//icons/Logo.svg';
 export const LeftPanel = (props, context) => {
 	function _handleClick(event) {
 		switch(event.target.textContent) {
-			case 'ГЛАВНЫЕ НОВОСТИ':
-				props.fetchNews('ukraine');
+			case 'НОВОСТИ':
+				props.fetchNews('all');
 				break;
 			case 'Украина':
 				props.fetchNews('ukraine');				

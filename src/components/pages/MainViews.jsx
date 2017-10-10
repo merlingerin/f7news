@@ -17,7 +17,7 @@ class MainViews extends React.Component {
         this.state = {
             news: [],
             currentPage: 2,
-            category: 'ukraine',
+            category: 'all',
             categoryTitle: 'ГЛАВНЫЕ НОВОСТИ',
             maxPage: false,
             loading: true,
@@ -123,12 +123,22 @@ class MainViews extends React.Component {
     *RENDER DATE OF NEWS
     *-------------------------------------*/
     renderDate(news) {
-        const now = new Date().getTime();
+        let now = new Date().getTime(),
+                today = Math.floor(now / (1000 * 1000 * 60 * 60 * 24)),
+                yesterday = Math.floor(now / (1000 * 1000 * 60 * 60 * 48));
+
         news.map((item, idx) => {
-            // if ((item.content.time - now) )
-            console.log('Date::', (new Date( now ) -  new Date ( item.body.date * 1000 )) > 1000 * 60 * 60 * 24 );        
-            // console.log('Date::', 1000 * 60 * 60 * 24);        
-        })
+
+            let newsTime = Math.floor(item.body.date / (1000 * 60 * 60 * 24));
+            
+            if (today === newsTime) {
+                item.body.time = 'Сегодня, ';
+            }
+            if (yesterday === newsTime) {
+                item.body.time = 'Вчера';            
+            }
+            console.log(item);
+        });
     }
     /*-----------------------------------
     *END ./RENDER DATE OF NEWS
