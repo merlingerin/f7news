@@ -1,13 +1,13 @@
 const initialState = {
-    UAuk: {
+    UA_uk: {
         data: {
             today: 'Сьогоднi',
             yesterday: 'Вчора'
         },
         menu: {
             news: 'Новини',
-            ukraine: 'Украна',
-            emergencies: 'надзвичайні події',
+            ukraine: 'Україна',
+            emergencies: 'Надзвичайні події',
             lol: 'Lol',
             world: 'Світ',
             lifstyle: 'Lifstyle',
@@ -20,17 +20,37 @@ const initialState = {
             favorites: 'Збережені'
         }
     },
-    RUru: {}
+    RU_ru: {
+        data: {
+            today: 'Сегодня',
+            yesterday: 'Вчера'
+        },
+        menu: {
+            news: 'Новости',
+            ukraine: 'Украина',
+            emergencies: 'Чрезвычайные ситуации',
+            lol: 'Lol',
+            world: 'Мир',
+            lifstyle: 'Lifstyle',
+            sport: 'Спорт',
+            showbiz: 'Шоу-бизнес',
+            favorites: 'Сохранённые',
+            aboutUs: 'Про нас'
+        },
+        favorites: {
+            favorites: 'Сохранённые'
+        }
+    }
 }
 
 export default function Options(state = initialState, action) {
 	switch(action.type) {
-		case 'CHANGE_FONT':
+		case 'CHANGE_LANGUAGE':
 			return {
-				bigFont: action.payload
+				language: action.payload
 			};
 			break;
 		default:
-			return state;
+			return state.UA_uk;
 	}
 }

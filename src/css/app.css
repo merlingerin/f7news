@@ -252,7 +252,7 @@ body {
     line-height: 26px;
     font-weight: 600;    
     letter-spacing: 0.5px;    
-    color: #000000;
+    color: #1f2328;
 }
 
 .navbar__sublink-title .item-content {
@@ -279,6 +279,7 @@ body {
 	flex-flow: row wrap;
     align-items: flex-start;
     width: 100%;
+    color: #1f2328;
 }
 
 .Card-container {
@@ -327,9 +328,13 @@ body {
 }
 
 .Card .card__footer {
-	padding: 15pt 16pt;
+    padding: 15pt 16pt 7pt;
 }
 
+.Card .footer__date,
+.NewsView .card__date {
+    color: #aaa9a9;    
+}
 
 /*content-block of news*/
 .NewsView .content-block h1 {
@@ -337,6 +342,10 @@ body {
     font-weight: 600;
     line-height: 24px;
     padding: 15px 0 10px;
+}
+
+.NewsView .card__date {
+    padding-top: 10px;
 }
 
 .NewsView .content-block h2 {
@@ -348,7 +357,8 @@ body {
 }
 
 .NewsView .content-block h3 {
-
+    text-align: left!important;
+    font-size: 16px;
 }
 
 .NewsView .page-content {
@@ -372,7 +382,7 @@ body {
 }
 
 .NewsView a {
-    color: #212121;
+    color: #1f2328;
 }
 
 .NewsView .content-block-inner {
@@ -385,7 +395,7 @@ body {
     font-weight: 700;
     font-size: 20px;
     padding-bottom: 14px;
-    padding-top: 50px;
+    padding-top: 15px;
 }
 
 .NewsView a,
@@ -400,7 +410,7 @@ body {
 }
 
 .NewsView .bigFont .news__title {
-    font-size: 26px;
+    font-size: 24px;
 }
 
 .NewsView .read-also {
@@ -435,7 +445,7 @@ body {
 .NewsView .content-block.bigFont a,
 .NewsView .content-block.bigFont p,
 .NewsView .content-block.bigFont .content-block-inner {
-    font-size: 20px;
+    font-size: 18px;
 }
 .NewsView .card__category {
     position: absolute;

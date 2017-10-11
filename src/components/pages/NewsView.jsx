@@ -25,7 +25,7 @@ export default class NewsView extends React.Component {
 
     render() {
         const title = ReactHtmlParser(this.state.content.body.title);
-        const Itext = this.state.content.body.text.replace(this.state.content.body.text.slice(this.state.content.body.text.indexOf('<iframe'), this.state.content.body.text.indexOf('</iframe>')), '');
+        // const Itext = this.state.content.body.text.replace(this.state.content.body.text.slice(this.state.content.body.text.indexOf('<iframe'), this.state.content.body.text.indexOf('</iframe>')), '');
         // Itext.replace(Itext.slice(Itext))
         const caption = this.state.content.body.text
                         .replace(/\[caption.+\[\/caption\]/ig, '')
@@ -40,63 +40,37 @@ export default class NewsView extends React.Component {
                         .replace(/\<strong\>Смотрите\<\/strong\>:/ig, '<strong>Смотрите:</strong>')
                         .replace(/&nbsp;/ig, '')
                         .replace(/(?:\r\n|\r|\n)/g, '<br />')
-                        // .replace(/[(?:\r\n|\r|\n)]{5}/g, '')
                         .replace(/\↵/ig, '')
                         .replace(/\\n/ig, '')                        
                         .replace(/\<img.+\>/ig, '')
                         .replace(/\<script.+\<\/script\>/ig, '')
                         .replace(/\<blockquote.+blockquote\>/ig, '')
                         .replace(/\<blockquote.+\<\/blockquote\>/ig, '')
-                        .replace(/\<p class=\"read-also\"\>.+\<\/p\>/ig, '');
-        console.log('this.state.content.body.text', this.state.content.body.text.match(/(?:\r\n|\r|\n)/g));
-        // const text = ReactHtmlParser(caption, {
-        //     transform: function(node) {
-        //     if (node.type === 'tag' && node.props.className === 'read-also') {
-        //         return null;
-        //     }
-        //     if (node.type === 'tag' && node.name === 'blockquote') {
-        //       return null;
-        //     }
-        //     if (node.type === 'tag' && node.name === 'iframe') {
-        //         return null;
-        //     }
-        //     if(node.data !== undefined) {
-        //         console.log('BEFORE', node.data);
-                
-        //         node.data
-        //             .replace(/&nbsp;/ig, '')
-        //             .replace(/(\r\n|\n|\r)/gm, '')
-        //             .replace(/\↵/ig, '')
-        //             .replace(/\!/ig, '')
-        //             console.log('AFTER', node.data);
-        //     }
-        //   }}); 
+                        .replace(/\<p class=\"read-also\"\>.+?\<\/p\>/ig, '')
+                        .replace(/(\<br \/\>){2,}/g, '<br />');
+                                               
+                        // .replace(/[.+<br \/>][^.+<p\/><br \/>]/gi, 'Hello');
+                        // .replace(/[^>]\<br \/\>/g, '$&<br />');                                                                        
+                        // .replace(/(\<br \/\>){2,}/g, '<br />');                                                
+                        // .replace(/(\<br  \/\>){1,}/g, '<br />');       
+        let parsedText = caption.split('<br />').map(function(item, idx) {
 
-        // const contentBlock = (type) => {
-        //     if(type === 'videos') {
-        //         return (
-        //             <div className="NewsView__img NewsView__video">
-        //                 <div className="video-container">{this.state.content.body.linkVideo}</div>
-        //             </div>
-        //         )
-        //     } else {
-        //         return (
-        //             <div className="NewsView__img">
-        //                 <img src={this.state.content.body.linkImg} alt={this.state.content.category} />
-        //             </div>
-        //         )
-        //     }
+                return `<p>${item}</p>`;            
             
-        // };
-            
+        }).join('<br />');
+        // let parsedText1 = parsedText.replace(/\<p>.{1,2}\<\/p\>/ig, '')
+        //                             .replace(/<p><p.+?<\/p><\/p>/ig, ''); 
+
+        console.log('parsedText', parsedText);
+
         let contentBlock = (type) => {
             if(this.state.content.type === 'videos') {
-                return (<div className="NewsView__img NewsView__video">
-                                    <iframe width={window.innerWidth} height={window.innerWidth / 1.5} src={`${this.state.content.body.linkVideo}?rel=0&amp;controls=0&amp;showinfo=0`} frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                return (<div className="NewsView__video" >
+                                    <iframe width={window.innerWidth} height={window.innerWidth / 1.5} src={`${this.state.content.body.linkVideo}?rel=0&amp;controls=0&amp;showinfo=0`} frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
                                 </div>)
     
             } else {
-                return (<div className="NewsView__img">
+                return (<div className="NewsView__img" style={{width: window.innerWidth  + 'px', height: (window.innerWidth / 1.5)  + 'px'}}>
                                     <img src={this.state.content.body.linkImg} alt={this.state.content.category} />
                                 </div>)
             }
@@ -123,9 +97,9 @@ export default class NewsView extends React.Component {
                 {contentBlock(this.state.content.type)}
                 <ContentBlock className={this.state.bigFont ? 'bigFont' : ''} inner>
                     <div className="card__category">{this.state.content.category}</div>
-                    <div className="card__date">{this.state.content.category}</div>
+                    <div className="card__date">{this.state.content.body.time}</div>
                     <h3 className="news__title">{title}</h3>
-                    {<p dangerouslySetInnerHTML={{ __html: caption }}></p>}                
+                    {<div className="news__content" dangerouslySetInnerHTML={{ __html: parsedText }}></div>}
                 </ContentBlock>
             </Page>
         )

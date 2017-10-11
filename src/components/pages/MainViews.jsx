@@ -124,20 +124,43 @@ class MainViews extends React.Component {
     *-------------------------------------*/
     renderDate(news) {
         let now = new Date().getTime(),
-                today = Math.floor(now / (1000 * 1000 * 60 * 60 * 24)),
-                yesterday = Math.floor(now / (1000 * 1000 * 60 * 60 * 48));
+                today = Math.floor(now / (1000  * 60 * 60 * 24)),
+                yesterday = Math.floor(now / (1000 * 60 * 60 * 24) - 1);
+        let month = new Array(12);
+            month[0] = "Янв";
+            month[1] = "Фев";
+            month[2] = "Март";
+            month[3] = "Апр";
+            month[4] = "Май";
+            month[5] = "Июн";
+            month[6] = "Июл";
+            month[7] = "Авг";
+            month[8] = "Сен";
+            month[9] = "Окт";
+            month[10] = "Ноя";
+            month[11] = "Дек";
 
         news.map((item, idx) => {
 
-            let newsTime = Math.floor(item.body.date / (1000 * 60 * 60 * 24));
-            
+            let newsTime = Math.floor(item.body.date / (60 * 60 * 24));
+            const hours = new Date(item.body.date*1000).getHours() < 10 ? '0' + new Date(item.body.date*1000).getHours() : new Date(item.body.date*1000).getHours();
+            const minutes = new Date(item.body.date*1000).getMinutes() < 10 ? '0' + new Date(item.body.date*1000).getMinutes() : new Date(item.body.date*1000).getMinutes();
+            const itemMonth = month[new Date(item.body.date*1000).getMonth()];
+            const day = new Date(item.body.date*1000).getDay();
+            const year = new Date(item.body.date*1000).getFullYear();
             if (today === newsTime) {
-                item.body.time = 'Сегодня, ';
+                item.body.time = `Сегодня, ${hours}:${minutes}`;
             }
-            if (yesterday === newsTime) {
-                item.body.time = 'Вчера';            
+            else if (yesterday === newsTime) {
+                item.body.time = `Вчера, ${hours}:${minutes}`;            
             }
-            console.log(item);
+            else {
+            const itemMonth = month[new Date(item.body.date*1000).getMonth()];
+                item.body.time = `${day} ${itemMonth} ${year}`;
+            }
+            console.log('today', today);
+            console.log('yesterday', yesterday);
+            console.log('newsTime', newsTime);
         });
     }
     /*-----------------------------------
