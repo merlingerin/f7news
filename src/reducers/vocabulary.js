@@ -43,7 +43,7 @@ const initialState = {
     }
 }
 
-export default function Options(state = initialState, action) {
+export default function Vocabulary(state = initialState, action) {
 	switch(action.type) {
 		case 'CHANGE_LANGUAGE':
 			return {

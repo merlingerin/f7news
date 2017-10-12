@@ -14,6 +14,17 @@ Your custom styles go here
 }
 
 @font-face {
+    font-family: 'Glyphter';
+    src: url('../fonts/icons/Glyphter.eot');
+    src: url('../fonts/icons/Glyphter.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/icons/Glyphter.woff') format('woff'),
+         url('../fonts/icons/Glyphter.ttf') format('truetype'),
+         url('../fonts/icons/Glyphter.svg#Glyphter') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'ProxymaNova';
     src: url('../fonts/ProximaNova-Bold/ProximaNova-Bold.eot');
     src: url('../fonts/ProximaNova-Bold/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'),
@@ -97,23 +108,45 @@ Your custom styles go here
     /* Uncomment for 3D effect */
     /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   }
-   
-  /* .icon-share:before { content: '\e800'; } 
-  .icon-fontsize:before { content: '\e801'; } 
-  .icon-star:before { content: '\e802'; } 
-  .icon-trash:before { content: '\e803'; }  */
 
-  /* .icon-share:before { content: ''; width: 25px; height: 25px; background-image: url('../') } 
-  .icon-fontsize:before { content: ''; } 
-  .icon-star:before { content: ''; } 
-  .icon-trash:before { content: '\e803'; }  */
+[class*='icon-']:before{
+	display: inline-block;
+   font-family: 'Glyphter';
+   font-style: normal;
+   font-weight: normal;
+   line-height: 1;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   margin: 0;
+   font-size: 28px;
+   position: absolute;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   margin: auto;
+}
+.icon-Logo:before{content:'\0046'; font-size: 200px;}
+.icon-AA-big:before{content:'\0047';}
+.icon-share-black:before{content:'\004b';}
+.icon-AA:before{content:'\004c';}
+.icon-share-white:before{content:'\0050';}
+.icon-star-black:before{content:'\0051';}
+.icon-star-orange:before{content:'\0052';}
+.icon-Delete:before{content:'\0055';}
+
+.icon-Trash {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-image: url('../images/icons/trash/delete@3x.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .navbar-icon {
     background-repeat: no-repeat;
     background-position: center;
-}
-
-.navbar a.link:before, .subnavbar a.link:before, .toolbar a.link:before {
-    left: -32%;
 }
 
 .navbar-icon i {
@@ -148,15 +181,6 @@ iframe {
     width: 100%;
     max-width: 100%;
 }
-
-/* .NewsView .page-content {
-    padding: 0!important;
-}
-
-.NewsView__navbar {
-    background: transparent!important;
-    box-shadow: none!important;
-} */
 
 .f7-icons, .framework7-icons {
   font-family: 'Framework7 Icons';
@@ -193,19 +217,19 @@ body {
 
  .ictv-logo__container {
  	/* background-image: url('../images/icons/Logo 130x30.svg'); */
-    width: 130pt;
-    height: 30pt;
+    /* width: 130pt;
+    height: 30pt; */
+    width: 100%;
+    height: 100%;
     display: inline-block;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     margin: auto;
     box-shadow: none;
+    position: relative;
  }
 
- .navbar__sublink-title {
-
- }
  /* .loading-preloader {
     position: absolute;
     left: 0;
@@ -221,30 +245,11 @@ body {
     margin: 0;
 }
 
-.panel {
-    width: 340px;
-}
-
-.panel-left {
-    padding: 40px 20px;
-}
-
-.panel.layout-dark {
-    background-color: transparent;
-}
-
-.panel-left .page {
-
-}
-
-.panel-left .list-block {
-    margin: 0;
-}
-
  .navbar__link-title .item-title {
      font-size: 16px;
      font-weight: 600;
      letter-spacing: 1px;
+     text-transform: uppercase;
  }
 
 .navbar__sublink-title .item-title {
@@ -358,7 +363,7 @@ body {
 
 .NewsView .content-block h3 {
     text-align: left!important;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .NewsView .page-content {
@@ -530,6 +535,10 @@ padding: 0;
     width: 100%;
 }
 
+.navbar-inner .center {
+    /* text-transform: uppercase; */
+}
+
 .panel-left .navbar-through.view .page-content {
     background-color: #ff521d;
     padding-top: 150px;
@@ -545,64 +554,12 @@ padding: 0;
     display: none;
 }
 
-.panel-left {
-    z-index: 99999;
-}
-
-body.with-panel-left-reveal .views {
-    transform: translate3d(0,0,0);
-}
-
-body.with-panel-left-reveal .panel-overlay {
-    background: rgba(255,255,255, .8);
-    opacity: 1;
-}
-
-.panel-left {
-    display: block!important;
-    transform: translate3d(0,-100%,0);
-}
-
 .mainView-title {
     padding: 0;
     margin: 0;
     font-size: 14pt;
     line-height: 16pt;
 }
-
-body.with-panel-left-reveal .panel-overlay {
-    transform: translate3d(0,0,0);
-}
-
-.panel-left.active {
-    box-shadow: none;
-    background-color: transparent!important;
-    transform: translate3d(0,0,0);
-}
-
-
-
-/*TESTED MENU*/
-/* .panel-left,
-.panel-left .view,
-.panel-left .page,
-.panel-left .page-content  {
-    background-color: transparent!important;
-} */
-
-.panel-left .page-content ul {
-    background-color: #ff521d;
-    /* padding: 0 0 76pt 53pt; */
-}
-.panel-left .list-block {
-    
-}
-
-/* .ictv-logo {
-    display: none;
-} */
-
-/*END TESTED MENU*/
 
 .preloader {
     width: 47px;
@@ -621,6 +578,14 @@ body.with-panel-left-reveal .panel-overlay {
 .pull-to-refresh-layer .preloader {
     display: none!important;
 }
+
+/*FAVORITES*/
+.list-block .swipeout-actions-left a.swipeout-delete, 
+.list-block .swipeout-actions-right a.swipeout-delete {
+    background: #ffffff;
+}
+/*/.End FAVORITES*/
+
 
 /* Similarly: */
 @media (-webkit-max-device-pixel-ratio: 2) {

@@ -1,23 +1,15 @@
 import React from 'react';
-import HTMLParser from 'fast-html-parser';
 import {ListItem, Icon} from 'framework7-react';
 
 export const NewsItem = (props) => {
     const {content} = props;
-    const date = new Date(content.body.date);
-    // const currentDay = 
-    // const time = {
-    //     hours: date.getHours(),
-    //     minutes: date.getMinutes(),
+    // const date = new Date(content.body.date);
 
-    // };
     const styles = {
         backgroundImage: `url(`+content.body.linkImg+`)`,
         backgroundSize: 'cover',
     }
     const handleClick = (e) => {
-        e.prevetDefault;
-        e.stopPropagation;
         console.log(e);
     }
     const Container = function() {
@@ -26,8 +18,7 @@ export const NewsItem = (props) => {
             </div>
         )
     }
-    const context = JSON.stringify(content.body);
-    console.log('From item', content.body.time);
+    // const context = JSON.stringify(content.body);
     return (
         <div className="Card-container">
             <Icon onClick={handleClick} className="save-news ictv-icon" ></Icon>        

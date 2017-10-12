@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import {Panel, View, Pages, List, ListItem, Page, Navbar } from 'framework7-react';
-import logo from '../../images//icons/Logo.svg';
+import {getCurrentRoute} from '../pages/MainViews';
 
 export const LeftPanel = (props, context) => {
 	function _handleClick(event) {
@@ -33,18 +33,20 @@ export const LeftPanel = (props, context) => {
 				props.fetchNews('ukraine');
 				break;
 		}
-		console.log(props.changeTitle(''));		
+		if(getCurrentRoute()) {
+			getCurrentRoute().view.back();			
+		}
 	}
 
 	return (
-		<Panel left reveal layout="dark">
+		<Panel left reveal layout="dark" >
 			<View id="left-panel-view" navbarThrough >
 				{context.framework7AppContext.theme.ios ? <Navbar title="Left Panel"></Navbar> : null}
 				<Pages>
 					<Page>
 						{context.framework7AppContext.theme.material ? <Navbar className="ictv-logo" title="">
-							<div className="ictv-logo__container">
-								<img src={logo} alt="FAKTY"/>
+							<div className="ictv-logo__container icon Icons icon-Logo">
+								{<i className=""></i>}
 							</div>
 							</Navbar> : null}
 						<List>
@@ -57,7 +59,7 @@ export const LeftPanel = (props, context) => {
 							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Спорт" linkView="#main-view" linkClosePanel></ListItem>
 							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Шоу-бизнес" linkView="#main-view" linkClosePanel></ListItem>
 							<ListItem className="navbar__link-title" link="/about/"  title="ПРО НАС" linkView="#main-view" linkClosePanel></ListItem>
-							<ListItem className="navbar__link-title" link="/" onClick={_handleClick} data-context='{"title": "СОХРАНЁННЫЕ", "category": "features"}' title="СОХРАНЁННЫЕ НОВОСТИ" linkView="#main-view" linkClosePanel></ListItem>
+							<ListItem className="navbar__link-title" link="/favorites/" onClick={_handleClick} data-context='{"title": "СОХРАНЁННЫЕ", "category": "features"}' title="Избранное" linkView="#main-view" linkClosePanel></ListItem>
 						</List>
 					</Page>
 				</Pages>

@@ -2,7 +2,6 @@ export default function News(state = {}, action) {
 	switch(action.type) {
 		case 'FETCH_NEWS':
 			return {
-				...state,
 				...action.payload
 			};
 			break;

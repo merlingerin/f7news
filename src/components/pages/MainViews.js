@@ -1,15 +1,29 @@
 import React, {PropTypes} from 'react';
-import axios from 'axios';
 
+/*TEST*/
+import {
+	Framework7App
+} from 'framework7-react';
+
+import {routes} from '../../routes';
+/*TEST*/
+
+import axios from 'axios';
 import { View, Navbar, Pages, Page,
   Views, NavLeft, Link, NavCenter, NavRight,
-  infiniteScroll, Icon
+  infiniteScroll, Icon, Panel
 } from 'framework7-react';
 
 import { NewsList } from '../NewsList/NewsList';
 import { LeftPanel } from '../LeftPanel/LeftPanel';
-import {getFramework7} from '../App';
 import {connect} from 'react-redux';
+
+
+let framework7;
+let currentRoute;
+
+export const getFramework7 = () => framework7;
+export const getCurrentRoute = () => currentRoute;
 
 class MainViews extends React.Component {
     constructor(props) {
@@ -17,7 +31,8 @@ class MainViews extends React.Component {
         this.state = {
             news: [],
             currentPage: 2,
-            category: 'all',
+            // category: 'all',
+            category: props.Options.category,
             categoryTitle: 'ГЛАВНЫЕ НОВОСТИ',
             maxPage: false,
             loading: true,
@@ -158,9 +173,6 @@ class MainViews extends React.Component {
             const itemMonth = month[new Date(item.body.date*1000).getMonth()];
                 item.body.time = `${day} ${itemMonth} ${year}`;
             }
-            console.log('today', today);
-            console.log('yesterday', yesterday);
-            console.log('newsTime', newsTime);
         });
     }
     /*-----------------------------------
@@ -194,7 +206,13 @@ class MainViews extends React.Component {
         
         }
         return (
-            <Views>
+            <Framework7App 
+                themeType="material"
+                swipePanel= "left"
+                routes={routes} onFramework7Init={f7 => {framework7 = f7; console.log('Framework7 Object ', framework7);}} 
+                onRouteChange={route => currentRoute = route}
+            >		
+            <Views id="Fucking-view">
                 <View id="main-view" navbarThrough dynamicNavbar={true} main url="/">
                     <Pages>
                         <Page hideBarsOnScroll pullToRefresh onPtrRefresh={this.onRefresh} infiniteScroll onInfinite={this.onInfiniteScroll} data-ptr-distance="200">
@@ -211,11 +229,15 @@ class MainViews extends React.Component {
                         </Page>
                     </Pages>
                 </View>
-                <LeftPanel changeTitle={this.changeTitle} fetchNews={this.fetchNews} />
             </Views>
+            {<LeftPanel changeTitle={this.changeTitle} fetchNews={this.fetchNews} />}            
+            </Framework7App>
+
         );
     }
 }
+
+
 
 MainViews.contextTypes = {
   framework7AppContext: PropTypes.object
@@ -223,7 +245,8 @@ MainViews.contextTypes = {
 
 export default connect(
     state => ({
-        News: state
+        News: state.News,
+        Options: state.Options
     }),
     dispatch => ({
         onFetchNews: (news) => {

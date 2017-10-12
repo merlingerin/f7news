@@ -1,6 +1,6 @@
 import {About} from './components/pages/About';
 import NewsView from './components/pages/NewsView';
-import {Ukraine} from './components/pages/Ukraine';
+import FavoritesView from './components/pages/FavoritesView';
 import {Emergencies} from './components/pages/Emergencies';
 import {World} from './components/pages/World';
 import {Lol} from './components/pages/Lol';
@@ -15,24 +15,6 @@ export const routes = [{
     path: '/:idx/:postId/',
     component: NewsView
 }, {
-    path: '/ukraine/',
-    component: Ukraine
-}, {
-    path: '/emergencies/',
-    component: Emergencies
-}, {
-    path: '/world/',
-    component: World
-}, {
-    path: '/lol/',
-    component: Lol
-}, {
-    path: '/lifestyle/',
-    component: Lifestyle
-}, {
-    path: '/sport/',
-    component: Sport
-}, {
-    path: '/showbusiness/',
-    component: Showbusiness
+    path: '/favorites/',
+    component: FavoritesView
 }];
