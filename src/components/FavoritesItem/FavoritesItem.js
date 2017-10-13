@@ -3,10 +3,13 @@ import {ListItem, List, ListItemSwipeoutActions, ListItemSwipeoutButton, onSwipe
 
 export const FavoritesItem = (props) => {
     console.log('ITEM PROPS', props);
+    const handleClick = () => {
+        props.onDelete(props.content.id);
+    }
     return (
-        <ListItem swipeout title={props.content.body.title} onSwipeoutDeleted={onSwipeoutDeleted}>
+        <ListItem link={`/news/favorites/${props.content.id}`}  swipeout title={props.content.body.title} onSwipeoutDeleted={onSwipeoutDeleted}>
             <ListItemSwipeoutActions>
-            <ListItemSwipeoutButton delete>
+            <ListItemSwipeoutButton onClick={handleClick} delete>
                 <i className='icon-Trash' ></i>                 
             </ListItemSwipeoutButton>
             </ListItemSwipeoutActions>

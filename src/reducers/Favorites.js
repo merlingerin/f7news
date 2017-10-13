@@ -12,14 +12,12 @@ export default function Favorites(state = initialState, action) {
             break;
         case 'REMOVE_FAVORITES':
             const newState = state.filter((item, idx) => {
-                return item.id !== action.payload
+                const parseItem = JSON.parse(item);
+                return parseItem.id !== action.payload
             });
-            localStorage.setItem('favorites', [
-                ...newState
-            ]);
-            return [
-                ...newState
-            ]
+            localStorage.removeItem(action.payload + '');
+            console.log('newState', newState);
+            return [...newState];
             break;
         default:
             return state;

@@ -59,7 +59,7 @@ export const LeftPanel = (props, context) => {
 							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Спорт" linkView="#main-view" linkClosePanel></ListItem>
 							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Шоу-бизнес" linkView="#main-view" linkClosePanel></ListItem>
 							<ListItem className="navbar__link-title" link="/about/"  title="ПРО НАС" linkView="#main-view" linkClosePanel></ListItem>
-							<ListItem className="navbar__link-title" link="/favorites/" onClick={_handleClick} data-context='{"title": "СОХРАНЁННЫЕ", "category": "features"}' title="Избранное" linkView="#main-view" linkClosePanel></ListItem>
+							<ListItem className="navbar__link-title" link="/favorites/" data-context='{"title": "СОХРАНЁННЫЕ", "category": "features"}' title="Избранное" linkView="#main-view" linkClosePanel></ListItem>
 						</List>
 					</Page>
 				</Pages>

@@ -182,6 +182,9 @@ class MainViews extends React.Component {
         this.fetchNews(this.state.category);
     }
 
+    componentWillMount() {
+    }
+
     componentDidUpdate() {
         console.log('MainView:::', this.state.news);                
     }
@@ -203,7 +206,6 @@ class MainViews extends React.Component {
     render() {
         if(this.state.news.length > 0) {
                 this.renderDate(this.state.news);        
-        
         }
         return (
             <Framework7App 

@@ -22,7 +22,7 @@ export const NewsItem = (props) => {
     return (
         <div className="Card-container">
             <Icon onClick={handleClick} className="save-news ictv-icon" ></Icon>        
-            <ListItem className="Card" link={`/${props.idx}/${content.id}/`} >
+            <ListItem className="Card" link={`/news/${content.id}/`} >
                 { Container() }
                 <div className="card__footer">
                     <div className="footer__title"><h3 className="mainView-title" dangerouslySetInnerHTML={{ __html: content.body.title }}></h3><div className="card__category">{content.category}</div></div>

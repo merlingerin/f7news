@@ -19,7 +19,6 @@ class FavoritesView extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <Page className="FavoritesView" hideBarsOnScroll>
                 <Navbar title="Избранное" backLink="Back" sliding>

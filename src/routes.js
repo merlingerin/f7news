@@ -9,12 +9,15 @@ import {Sport} from './components/pages/Sport';
 import {Showbusiness} from './components/pages/Showbusiness';
 
 export const routes = [{
+    path: '/favorites/',
+    component: FavoritesView
+},{
     path: '/about/',
     component: About
 }, {
-    path: '/:idx/:postId/',
+    path: '/news/:category/:postId/',
     component: NewsView
 }, {
-    path: '/favorites/',
-    component: FavoritesView
+    path: '/news/:postId/',
+    component: NewsView
 }];

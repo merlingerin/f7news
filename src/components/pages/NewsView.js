@@ -8,26 +8,28 @@ class NewsView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: props.News[this.props.idx],
+            content: [],
             bigFont: props.Options.bigFont
         }
         this.changeFont = this.changeFont.bind(this);
         this.addToFavorite = this.addToFavorite.bind(this);
     }
 
-    changeFont() {
-        this.props.onChangeFont(!this.state.bigFont); 
+    componentWillMount() {
+        let favorites;
+        this.props.category ? favorites = this.props.Favorites.map((item) => {return JSON.parse(item)}) : false;  
+        
+        const news = this.props.category === 'favorites' ? favorites : this.props.News;
+        const id = Object.keys(news).filter((item, idx) => {
+            return +news[item].id === +this.props.postId ? news[item] : false;
+        });
+        console.log('props idx', this.props.Favorites.map((item) => {return JSON.parse(item)}));
+        
         this.setState({
-            bigFont: !this.state.bigFont
-        })
-
+            content: news[id]
+        });    
     }
-
-    addToFavorite() {
-        this.props.onAddFavorite(this.state.content)
-    }
-
-    render() {
+    componentDidMount() {
         const title = ReactHtmlParser(this.state.content.body.title);
         const caption = this.state.content.body.text
                         .replace(/\[caption.+\[\/caption\]/ig, '')
@@ -66,9 +68,26 @@ class NewsView extends React.Component {
                                 .replace(/(<p>(<p.+?<\/p>)<\/p>)/gi,'$2')
                                 .replace(/<p class="jsna"><\/p><br \/>/gi,'')
                                 .replace(/(\<br \/\>){2,}/g, '<br />');
-                        
-        console.log('parsedText', parsedText);
+        this.setState({
+            title: title,
+            parsedText: parsedText
+        })  
+    }
 
+    changeFont() {
+        this.props.onChangeFont(!this.state.bigFont); 
+        this.setState({
+            bigFont: !this.state.bigFont
+        })
+
+    }
+
+    addToFavorite() {
+        this.props.onAddFavorite(this.state.content)
+    }
+
+    render() {
+        console.log(this.props);
         let contentBlock = (type) => {
             if(this.state.content.type === 'videos' && this.state.content.body.linkVideo !== '') {
                 return (<div className="NewsView__video" >
@@ -102,8 +121,8 @@ class NewsView extends React.Component {
                 <ContentBlock className={this.state.bigFont ? 'bigFont' : ''} inner>
                     <div className="card__category">{this.state.content.category}</div>
                     <div className="card__date">{this.state.content.body.time}</div>
-                    <h3 className="news__title">{title}</h3>
-                    {<div className="news__content" dangerouslySetInnerHTML={{ __html: parsedText }}></div>}
+                    {<h3 className="news__title">{this.state.title}</h3>}
+                    {<div className="news__content" dangerouslySetInnerHTML={{ __html: this.state.parsedText }}></div>}
                 </ContentBlock>
             </Page>
         )
@@ -113,7 +132,8 @@ class NewsView extends React.Component {
 export default connect(
     state => ({
         News: state.News,
-        Options: state.Options
+        Options: state.Options,
+        Favorites: state.Favorites,
     }),
     dispatch => ({
         onAddFavorite: (pieceOfNews) => {

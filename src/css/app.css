@@ -156,6 +156,18 @@ Your custom styles go here
     background-position: center;
 }
 
+/*CSS TRANSITION GROUP*/
+.example-appear {
+    opacity: 0.01;
+}
+  
+.example-appear.example-appear-active {
+    opacity: 1;
+    transition: opacity .5s;
+    transition-timing-function: ease-in;
+}
+/*/.CSS TRANSITION GROUP*/
+
 * {
     padding: 0;
     margin: 0;
