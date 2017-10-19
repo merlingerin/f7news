@@ -15,7 +15,7 @@ export const NewsList = (props) => {
                 transitionLeave={false}>
                     {props.news.map(
                         (item, idx) => {
-                            return <NewsItem key={item.id} idx={idx} content={item} />
+                            return <NewsItem key={item.id} setCurrentNews={props.setCurrentNews} idx={idx} content={item} />
                         }
                     )}
             </CSSTransitionGroup>                  

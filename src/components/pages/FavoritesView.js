@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Page, ContentBlock, Navbar, ListItem, List, ListItemSwipeoutActions, ListItemSwipeoutButton, onSwipeoutDeleted} from 'framework7-react';
+import {Page, ContentBlock, Navbar, ListItem, List, ListItemSwipeoutActions, ListItemSwipeoutButton, onSwipeoutDeleted, NavLeft, NavCenter} from 'framework7-react';
 import {FavoritesItem} from '../FavoritesItem/FavoritesItem';
 import {connect} from 'react-redux';
+import IconButton from 'material-ui/IconButton';
+
 
 class FavoritesView extends React.Component {
     constructor(props) {
@@ -9,6 +11,13 @@ class FavoritesView extends React.Component {
         this.state = {
             favorites: props.Favorites
         }
+    }
+
+    
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            favorites: nextProps.Favorites
+        })
     }
 
     renderNews() {
@@ -21,11 +30,17 @@ class FavoritesView extends React.Component {
     render() {
         return (
             <Page className="FavoritesView" hideBarsOnScroll>
-                <Navbar title="Избранное" backLink="Back" sliding>
+                <Navbar sliding>
+                    <NavLeft>
+                        <a className="navbar-icon icon-only link back" >
+                            <IconButton><i className="icon-arrow-black" ></i></IconButton>                                                
+                        </a>
+                    </NavLeft>
+                    <NavCenter>Избранное</NavCenter>
                 </Navbar>
                 <ContentBlock>
                     <List>
-                        { this.state.favorites.length > 0 ? this.renderNews() : <h3>Список пуст.</h3> }
+                        { this.state.favorites.length > 0 ? this.renderNews() : <h3 className="empty-list__title">Список пуст.</h3> }
                     </List>
                 </ContentBlock>
             </Page>

@@ -52,7 +52,7 @@ export const LeftPanel = (props, context) => {
 						<List>
 							<ListItem className="navbar__link-title" link="/" onClick={_handleClick} title="НОВОСТИ" linkView="#main-view" linkClosePanel></ListItem>
 							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Украина" linkView="#main-view" linkClosePanel></ListItem>
-							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Чрезвычайные происшествия" linkView="#main-view" linkClosePanel></ListItem>
+							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Происшествия" linkView="#main-view" linkClosePanel></ListItem>
 							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Lol" linkView="#main-view" linkClosePanel></ListItem>
 							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Мир" linkView="#main-view" linkClosePanel></ListItem>
 							<ListItem className="navbar__sublink-title" link="/" onClick={_handleClick} title="Lifstyle" linkView="#main-view" linkClosePanel></ListItem>

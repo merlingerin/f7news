@@ -3,71 +3,82 @@ import {Page, ContentBlock, Navbar, NavLeft, NavCenter, NavRight} from 'framewor
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import {store} from '../../store';
 import {connect} from 'react-redux';
+import Share from '../Share/Share';
+import IconButton from 'material-ui/IconButton';
 
 class NewsView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: [],
-            bigFont: props.Options.bigFont
+            content: '',
+            bigFont: props.Options.bigFont,
+            addedToFavorite: false,
+            shareActive: true
         }
         this.changeFont = this.changeFont.bind(this);
         this.addToFavorite = this.addToFavorite.bind(this);
+        this.handleShare = this.handleShare.bind(this);
     }
 
     componentWillMount() {
+ 
+        //CHECK EXIST NEWS IN FAVORITE OR NOT (for offline work)
         let favorites;
         this.props.category ? favorites = this.props.Favorites.map((item) => {return JSON.parse(item)}) : false;  
         
         const news = this.props.category === 'favorites' ? favorites : this.props.News;
+
+        //CHECK ADDED NEW TO FAVORITE OR NOT
+        this.props.Favorites.map((item) => {
+            let parsedItem = JSON.parse(item);
+            console.log('parsedItem.id', parsedItem.id);
+            console.log('this.props.postId', this.props.postId);
+            +this.props.postId === +parsedItem.id ? this.setState({addedToFavorite: true}) : false;
+        })
+        
+        // GET CURRENT NEWS CONTENT FROM ALL NEWS
         const id = Object.keys(news).filter((item, idx) => {
             return +news[item].id === +this.props.postId ? news[item] : false;
         });
-        console.log('props idx', this.props.Favorites.map((item) => {return JSON.parse(item)}));
-        
+        console.log('props idx', this.props.Favorites.map((item) => {return JSON.parse(item)})); 
         this.setState({
-            content: news[id]
-        });    
+            content: news[id],
+        });
+
     }
-    componentDidMount() {
+    componentDidMount() { 
+        this.props.setCurrentNews('');            
+
         const title = ReactHtmlParser(this.state.content.body.title);
-        const caption = this.state.content.body.text
-                        .replace(/\[caption.+\[\/caption\]/ig, '')
-                        .replace(/<a.><\/a>/ig, '')
-                        .replace(/<iframe.+<\/iframe>/ig, '')
-                        .replace(/<strong\>Фото.+<\/a>/ig, '')                        
-                        .replace(/<strong>Смотрите.+<\/a><\/span>/ig, '<p class="read-also">$&</p>')
-                        .replace(/<strong\>Читайте.+<\/a><\/span>/ig, '<p class="read-also">$&</p>')
-                        .replace(/<strong>Смотрите:<\/strong>.+<\/a>/ig, '<p class="read-also">$&</p>')
-                        .replace(/<strong>Читайте:<\/strong>.+<\/a>/ig, '<p class="read-also">$&</p>')
-                        .replace(/\<strong\>Читайте\<\/strong\>:/ig, '<strong>Читайте:</strong>')
-                        .replace(/\<strong\>Смотрите\<\/strong\>:/ig, '<strong>Смотрите:</strong>')
-                        .replace(/&nbsp;/ig, '')
-                        .replace(/(?:\r\n|\r|\n)/g, '<br />')
-                        .replace(/\↵/ig, '')
-                        .replace(/\\n/ig, '')                        
-                        .replace(/\<img.+\>/ig, '')
-                        .replace(/\<script.+\<\/script\>/ig, '')
-                        .replace(/\<blockquote.+blockquote\>/ig, '')
-                        .replace(/\<blockquote.+\<\/blockquote\>/ig, '')
-                        .replace(/\<p class=\"read-also\"\>.+?\<\/p\>/ig, '')
-                        .replace(/(<br \/>){2,}/g, '<br />');                 
-                        // .replace(/[.+<br \/>][^.+<p\/><br \/>]/gi, 'Hello');
-                        // .replace(/[^>]\<br \/\>/g, '$&<br />');                                                                          
-                        // .replace(/(\<br  \/\>){1,}/g, '<br />');       
-        let parsedText = caption.split('<br />')
-                                .map(function(item, idx) {
-                                        let parsedItem = `<p>${item}</p>`;
-                                        
-                                        return parsedItem;
-                                })
-                                .join('<br />').replace(/<p><strong>Фото:<\/strong>.+?<\/p>/g, '')
-                                .replace(/<p><strong>Видео:<\/strong>.+?<\/p>/g, '')
-                                .replace(/<p><\/span><\/p><\/p>/g, '')
-                                .replace(/<p><\/p>/g, '')
-                                .replace(/(<p>(<p.+?<\/p>)<\/p>)/gi,'$2')
-                                .replace(/<p class="jsna"><\/p><br \/>/gi,'')
-                                .replace(/(\<br \/\>){2,}/g, '<br />');
+        console.log('this.state.content.body.text', JSON.stringify(this.state.content.body.text));
+        
+        const caption = JSON.stringify(this.state.content.body.text)
+                            .replace(/<img.+?\/>/ig, '')
+                            .replace(/\[caption.+\[\/caption\]/ig, '')
+                            .replace(/<iframe.+?<\/iframe>/ig, '')
+                            .replace(/<script.+?<\/script>/ig, '')
+                            .replace(/\\t/gi, '')
+                            .replace(/\&nbsp;/gi, '')
+                            .replace(/\[democracy .+\"]/gi, '')
+                            .replace(/\\r\\n\\r\\n<strong>Фото:<\/strong>.+?"/gi, '')
+                            .replace(/<span title=\\"Читайте:.+<\/a><\/span><\/span>\\r\\n\\r\\n/gi, '')                            
+                            .replace(/<span title=\"Читайте:.+<\/a><\/span><\/span>\\r\\n\\r\\n/gi, '')                            
+                            .replace(/<strong>Читайте.+\.?<\/a><\/span>\\r\\n/gi, '')                            
+                            .replace(/<span>Читайте.+\.?<\/span>/gi, '')                            
+                            .replace(/<strong>Фото:.+<\/span>/gi, '')                       
+                            .replace(/<strong>Фото.+"fakty_rm_tinymce\\">.+?<\/a><\/span>?./ig, '') //not inportant
+                            .replace(/<strong>Читайте.+<span class="fakty_rm_tinymce">.+?<\/span>\r\n\r\n/ig, '') //not important
+                            .replace(/<strong>Читайте.+<a href.+\.?<\/a><\/span>\\r\\n\\r\\n/ig, '')
+                            .replace(/\\r\\n\\r\\n<strong>Читайте.+\.?<\/a><\/span>\\r\\n/ig, '')
+                            .replace(/\\r\\n<strong>Читайте.+\.?<\/a>\\r\\n/ig, '')
+                            .replace(/<strong>Смотрите.+<a href.+\.?<\/a><\/span>\\r\\n\\r\\n/ig, '')
+                            .replace(/\\r\\n\\r\\n<strong>Смотрите.+\.?<\/a><\/span>\\r\\n/ig, '')
+                            .replace(/\\r\\n<strong>Смотрите.+\.?<\/a>\\r\\n/ig, '')
+                            .replace(/\\r\\n/ig, '<br>')
+                            .replace(/(<br>){1,}"/gi, '"')                            
+                            .replace(/(<br>){3,}/gi, '<br>');
+        let parsedText = caption;
+                                
         this.setState({
             title: title,
             parsedText: parsedText
@@ -83,11 +94,24 @@ class NewsView extends React.Component {
     }
 
     addToFavorite() {
-        this.props.onAddFavorite(this.state.content)
+        this.setState({
+            addedToFavorite: !this.state.addedToFavorite,
+        });
+        if(!this.state.addedToFavorite) {
+            this.props.onAddFavorite(this.state.content);        
+        } else {
+            this.props.removeFavorite(this.state.content.id)
+        }
+    }
+    handleShare() {
+        let title = this.state.title[0],
+            link = this.state.content.link;
+
+        window.plugins.socialsharing.share(title, null, null, link);
     }
 
     render() {
-        console.log(this.props);
+        console.log('parsedText', this.state.parsedText);
         let contentBlock = (type) => {
             if(this.state.content.type === 'videos' && this.state.content.body.linkVideo !== '') {
                 return (<div className="NewsView__video" >
@@ -100,30 +124,37 @@ class NewsView extends React.Component {
                                 </div>)
             }
         }
+
         return (
             <Page className="NewsView" hideBarsOnScroll>
                 <Navbar className="NewsView__navbar">
-                    <NavLeft backLink="Back"></NavLeft>
+                    <NavLeft>
+                        <a className="navbar-icon icon-only link back" >
+                            <IconButton><i className="icon-arrow-black" ></i></IconButton>                                                
+                        </a>
+                    </NavLeft>
                     <NavCenter></NavCenter>
                     <NavRight>
                         <a className="navbar-icon icon-only link" onClick={this.changeFont} >
                             <i className={`icon Icons ${this.state.bigFont ? 'icon-AA-big' : 'icon-AA'}`} ></i> 
                         </a>
                         <a className="navbar-icon icon-only link" onClick={this.addToFavorite}>
-                            <i className="icon Icons icon-star-black" ></i> 
+                            <i className={`icon Icons ${this.state.addedToFavorite ? 'icon-star-black' : 'icon-star-white'}`} ></i> 
                         </a>
-                        <a className="navbar-icon icon-only link">
-                            <i className="icon Icons icon-share-white"></i> 
+                        <a className="navbar-icon icon-only link" onClick={this.handleShare}>
+                            {/* <Share /> */}
+                            <i className='icon-share-white' ></i>
                         </a>
                     </NavRight> 
                 </Navbar>
                 {contentBlock(this.state.content.type)}
                 <ContentBlock className={this.state.bigFont ? 'bigFont' : ''} inner>
-                    <div className="card__category">{this.state.content.category}</div>
+                <div className="card__category">{this.state.content.category}</div>
                     <div className="card__date">{this.state.content.body.time}</div>
                     {<h3 className="news__title">{this.state.title}</h3>}
-                    {<div className="news__content" dangerouslySetInnerHTML={{ __html: this.state.parsedText }}></div>}
+                    {<div className="news__content" dangerouslySetInnerHTML={{ __html: this.state.parsedText }}></div>}         
                 </ContentBlock>
+                <Share opened={this.state.shareActive} />
             </Page>
         )
     };
@@ -141,6 +172,12 @@ export default connect(
         },
         onChangeFont: (currentSize) => {
             dispatch({type: 'CHANGE_FONT', payload: currentSize})
+        },
+        setCurrentNews: (news) => {
+            dispatch({type: 'SET_CURRENT_NEWS', payload: news})
+        },
+        removeFavorite: (id) => {
+            dispatch({type: 'REMOVE_FAVORITES', payload: id})
         }
     })
 )(NewsView);

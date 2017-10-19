@@ -17,6 +17,8 @@ import { View, Navbar, Pages, Page,
 import { NewsList } from '../NewsList/NewsList';
 import { LeftPanel } from '../LeftPanel/LeftPanel';
 import {connect} from 'react-redux';
+import {store} from '../../store';
+import {goBack} from 'framework7-redux'
 
 
 let framework7;
@@ -92,7 +94,7 @@ class MainViews extends React.Component {
         const params = new URLSearchParams();
         params.append('page', this.state.currentPage);
 
-        axios.post(`http://fakty.ictv.ua/ua/widgets_api/${category}/`, params)
+        axios.post(`http://fakty.ictv.ua/ru/widgets_api/${category}/`, params)
         .then((res) => {
 
            console.log([...this.state.news, ...res.data.news]) 
@@ -192,9 +194,6 @@ class MainViews extends React.Component {
     onInfiniteScroll() {
         
         if(this.state.lazyLoad) return;
-        // this.setState({
-        //     lazyLoad: true
-        // });
         this.fetchNewsOnScroll(this.state.category, this.state.currentPage);
     }
 
@@ -207,6 +206,7 @@ class MainViews extends React.Component {
         if(this.state.news.length > 0) {
                 this.renderDate(this.state.news);        
         }
+        
         return (
             <Framework7App 
                 themeType="material"
@@ -220,14 +220,18 @@ class MainViews extends React.Component {
                         <Page hideBarsOnScroll pullToRefresh onPtrRefresh={this.onRefresh} infiniteScroll onInfinite={this.onInfiniteScroll} data-ptr-distance="200">
                             <Navbar>
                                 <NavLeft>
-                                    <Link icon="" />
+                                    <Link icon="icon-Burger icon Icons" openPanel="left"></Link>
                                 </NavLeft>
-                                <NavCenter sliding>{this.state.categoryTitle}</NavCenter>
+                                <NavCenter>
+                                    <i className="icon-Logo"></i>
+                                </NavCenter>
                                 <NavRight>
-                                    <Link icon="icon-bars" openPanel="left"></Link>
+                                    <a href="/favorites/" className="navbar-icon icon-only link">
+                                        <i className="icon Icons icon-star-white" ></i> 
+                                    </a>
                                 </NavRight>
                             </Navbar>
-                            { !this.state.loading ? <NewsList news={this.state.news} />  :  <span className=""></span> }
+                            { !this.state.loading ? <NewsList setCurrentNews={this.props.setCurrentNews} news={this.state.news} /> : <span className=""></span> }
                         </Page>
                     </Pages>
                 </View>
@@ -256,6 +260,9 @@ export default connect(
         },
         onAddNews: (news) => {
             dispatch({type: 'ADD_NEWS', payload: news})
+        },
+        setCurrentNews: (news) => {
+            dispatch({type: 'SET_CURRENT_NEWS', payload: news})
         }
     })
 )(MainViews);

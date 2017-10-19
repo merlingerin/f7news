@@ -1,6 +1,7 @@
 const initialState = {
 	bigFont: false,
-	category: 'all'
+	category: 'all',
+	currentNews: {}
 }
 
 export default function Options(state = initialState, action) {
@@ -11,6 +12,11 @@ export default function Options(state = initialState, action) {
 				bigFont: action.payload
 			};
 			break;
+		case 'SET_CURRENT_NEWS':
+			return  {
+				...state,
+				currentNews: action.payload
+			}
 		case 'CHANGE_CATEGORY':
 			return {
 				...state,
