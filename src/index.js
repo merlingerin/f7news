@@ -15,14 +15,14 @@ import {Provider} from 'react-redux';
 import {store} from './store';
 
 
-document.addEventListener("deviceready", () => {
+// document.addEventListener("deviceready", () => {
   ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>,
     document.getElementById('root')
   );
-}, false);
+// }, false);
 
 
 

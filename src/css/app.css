@@ -721,6 +721,31 @@ padding: 0;
 }
 /*/.End FAVORITES*/
 
+.pannel__language {
+    font-size: 20px;
+    padding: 5px 15px;
+    position: relative;
+}
+
+.pannel__language.active:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 7px;
+    height: 7px;
+    background-color: #000000;
+    display: inline-block;
+    margin: auto;
+}
+
+.language__container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
 /*TESTED MENU*/
 .panel {
     width: 300px;

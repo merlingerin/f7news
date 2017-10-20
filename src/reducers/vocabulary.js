@@ -1,5 +1,5 @@
 const initialState = {
-    UA_uk: {
+    uk_UA: {
         data: {
             today: 'Сьогоднi',
             yesterday: 'Вчора'
@@ -20,7 +20,7 @@ const initialState = {
             favorites: 'Збережені'
         }
     },
-    RU_ru: {
+    ru_RU: {
         data: {
             today: 'Сегодня',
             yesterday: 'Вчера'
@@ -28,7 +28,7 @@ const initialState = {
         menu: {
             news: 'Новости',
             ukraine: 'Украина',
-            emergencies: 'Чрезвычайные ситуации',
+            emergencies: 'Происшествия',
             lol: 'Lol',
             world: 'Мир',
             lifstyle: 'Lifstyle',
@@ -51,6 +51,6 @@ export default function Vocabulary(state = initialState, action) {
 			};
 			break;
 		default:
-			return state.UA_uk;
+			return state;
 	}
 }

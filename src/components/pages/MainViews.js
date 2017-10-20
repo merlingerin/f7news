@@ -33,6 +33,7 @@ class MainViews extends React.Component {
         this.state = {
             news: [],
             currentPage: 2,
+            // language: 'ru_RU',
             // category: 'all',
             category: props.Options.category,
             categoryTitle: 'ГЛАВНЫЕ НОВОСТИ',
@@ -181,6 +182,7 @@ class MainViews extends React.Component {
     *END ./RENDER DATE OF NEWS
     *-------------------------------------*/
     componentDidMount() {
+        
         this.fetchNews(this.state.category);
     }
 
@@ -206,7 +208,7 @@ class MainViews extends React.Component {
         if(this.state.news.length > 0) {
                 this.renderDate(this.state.news);        
         }
-        
+        console.log('vocabulary', this.props);
         return (
             <Framework7App 
                 themeType="material"
@@ -252,7 +254,8 @@ MainViews.contextTypes = {
 export default connect(
     state => ({
         News: state.News,
-        Options: state.Options
+        Options: state.Options,
+        Vocabulary: state.Vocabulary
     }),
     dispatch => ({
         onFetchNews: (news) => {

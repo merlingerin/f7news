@@ -61,6 +61,10 @@ export const LeftPanel = (props, context) => {
 							<ListItem className="navbar__link-title" link="/about/"  title="ПРО НАС" linkView="#main-view" linkClosePanel></ListItem>
 							<ListItem className="navbar__link-title" link="/favorites/" data-context='{"title": "СОХРАНЁННЫЕ", "category": "features"}' title="Избранное" linkView="#main-view" linkClosePanel></ListItem>
 						</List>
+						<div className="language__container">
+							<span className="pannel__language language__rus active">РУС</span>						
+							<span className="pannel__language language__ua">УКР</span>	
+						</div>					
 					</Page>
 				</Pages>
 			</View>

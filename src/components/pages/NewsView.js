@@ -66,8 +66,10 @@ class NewsView extends React.Component {
                             .replace(/<strong>Читайте.+\.?<\/a><\/span>\\r\\n/gi, '')                            
                             .replace(/<span>Читайте.+\.?<\/span>/gi, '')                            
                             .replace(/<strong>Фото:.+<\/span>/gi, '')                       
+                            .replace(/<strong>Видео:.+<\/span>/gi, '')                       
                             .replace(/<strong>Фото.+"fakty_rm_tinymce\\">.+?<\/a><\/span>?./ig, '') //not inportant
                             .replace(/<strong>Читайте.+<span class="fakty_rm_tinymce">.+?<\/span>\r\n\r\n/ig, '') //not important
+                            .replace(/<strong>Читайте.+.+?<\/a><\/span>/ig, '') //not important
                             .replace(/<strong>Читайте.+<a href.+\.?<\/a><\/span>\\r\\n\\r\\n/ig, '')
                             .replace(/\\r\\n\\r\\n<strong>Читайте.+\.?<\/a><\/span>\\r\\n/ig, '')
                             .replace(/\\r\\n<strong>Читайте.+\.?<\/a>\\r\\n/ig, '')
@@ -75,7 +77,8 @@ class NewsView extends React.Component {
                             .replace(/\\r\\n\\r\\n<strong>Смотрите.+\.?<\/a><\/span>\\r\\n/ig, '')
                             .replace(/\\r\\n<strong>Смотрите.+\.?<\/a>\\r\\n/ig, '')
                             .replace(/\\r\\n/ig, '<br>')
-                            .replace(/(<br>){1,}"/gi, '"')                            
+                            .replace(/(<br>){1,}"/gi, '"')
+                            .replace(/\\"/gi, '"')                            
                             .replace(/(<br>){3,}/gi, '<br>');
         let parsedText = caption;
                                 
@@ -124,7 +127,7 @@ class NewsView extends React.Component {
                                 </div>)
             }
         }
-
+        
         return (
             <Page className="NewsView" hideBarsOnScroll>
                 <Navbar className="NewsView__navbar">
@@ -154,7 +157,6 @@ class NewsView extends React.Component {
                     {<h3 className="news__title">{this.state.title}</h3>}
                     {<div className="news__content" dangerouslySetInnerHTML={{ __html: this.state.parsedText }}></div>}         
                 </ContentBlock>
-                <Share opened={this.state.shareActive} />
             </Page>
         )
     };
