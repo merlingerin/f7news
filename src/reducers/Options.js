@@ -1,7 +1,8 @@
 const initialState = {
 	bigFont: false,
 	category: 'all',
-	currentNews: {}
+	currentNews: {},
+	currentLang: 'ru_RU'
 }
 
 export default function Options(state = initialState, action) {
@@ -23,6 +24,12 @@ export default function Options(state = initialState, action) {
 				category: action.payload
 			}
 			break;
+		case 'SET_CURRENT_LANG':
+		console.log(action.payload);
+			return {
+				...state,
+				currentLang: action.payload
+			}
 		default:
 			return state;
 	}

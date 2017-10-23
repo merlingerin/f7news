@@ -33,7 +33,8 @@ class MainViews extends React.Component {
         this.state = {
             news: [],
             currentPage: 2,
-            // language: 'ru_RU',
+            language: 'ru_RU',
+            vocabulary: {},
             // category: 'all',
             category: props.Options.category,
             categoryTitle: 'ГЛАВНЫЕ НОВОСТИ',
@@ -46,13 +47,14 @@ class MainViews extends React.Component {
         this.fetchNews = this.fetchNews.bind(this);
         this.changeTitle = this.changeTitle.bind(this);
         this.renderDate = this.renderDate.bind(this);
+        this.onChangeLang = this.onChangeLang.bind(this);
     }
 
     /*-----------------------------------
     *FETCH NEWS ON LOAD BY CATEGORY
     *-------------------------------------*/
-    fetchNews(category, cb)  {
-
+    fetchNews(category, lang, cb)  {
+        let currentLang = lang || this.state.vocabulary.data.url;
         this.setState({
             loading: true
         })
@@ -60,7 +62,7 @@ class MainViews extends React.Component {
         const params = new URLSearchParams();
         params.append('page', 1);
 
-        axios.post(`http://fakty.ictv.ua/ru/widgets_api/${category}/`, params)
+        axios.post(`http://fakty.ictv.ua/${currentLang}/widgets_api/${category}/`, params)
         .then((res) => {
 
             this.setState({
@@ -83,19 +85,19 @@ class MainViews extends React.Component {
     /*-----------------------------------
     *FETCH NEWS ON SCROLL
     *-------------------------------------*/
-    fetchNewsOnScroll(category, currentPage, maxPage)  {
+    fetchNewsOnScroll(category, currentPage, lang, maxPage)  {
         if(this.state.maxPage || this.state.lazyLoad) {
             return false;
         }
 
         this.setState({
             lazyLoad: true
-        })
-
+        });
+        let currentLang = lang || this.state.vocabulary.data.url;        
         const params = new URLSearchParams();
         params.append('page', this.state.currentPage);
 
-        axios.post(`http://fakty.ictv.ua/ru/widgets_api/${category}/`, params)
+        axios.post(`http://fakty.ictv.ua/${currentLang}/widgets_api/${category}/`, params)
         .then((res) => {
 
            console.log([...this.state.news, ...res.data.news]) 
@@ -145,6 +147,20 @@ class MainViews extends React.Component {
                 today = Math.floor(now / (1000  * 60 * 60 * 24)),
                 yesterday = Math.floor(now / (1000 * 60 * 60 * 24) - 1);
         let month = new Array(12);
+        if(this.state.lang === 'uk_UA') {
+            month[0] = "Січ";
+            month[1] = "Лют";
+            month[2] = "Бер";
+            month[3] = "Квіт";
+            month[4] = "Трав";
+            month[5] = "Черв";
+            month[6] = "Лип";
+            month[7] = "Серп";
+            month[8] = "Вер";
+            month[9] = "Жовт";
+            month[10] = "Лист";
+            month[11] = "Груд";
+        } else {
             month[0] = "Янв";
             month[1] = "Фев";
             month[2] = "Март";
@@ -157,6 +173,8 @@ class MainViews extends React.Component {
             month[9] = "Окт";
             month[10] = "Ноя";
             month[11] = "Дек";
+        }
+
 
         news.map((item, idx) => {
 
@@ -167,10 +185,10 @@ class MainViews extends React.Component {
             const day = new Date(item.body.date*1000).getDay();
             const year = new Date(item.body.date*1000).getFullYear();
             if (today === newsTime) {
-                item.body.time = `Сегодня, ${hours}:${minutes}`;
+                item.body.time = `${this.state.vocabulary.data.today}, ${hours}:${minutes}`;
             }
             else if (yesterday === newsTime) {
-                item.body.time = `Вчера, ${hours}:${minutes}`;            
+                item.body.time = `${this.state.vocabulary.data.tommorow}, ${hours}:${minutes}`;            
             }
             else {
             const itemMonth = month[new Date(item.body.date*1000).getMonth()];
@@ -182,21 +200,27 @@ class MainViews extends React.Component {
     *END ./RENDER DATE OF NEWS
     *-------------------------------------*/
     componentDidMount() {
-        
-        this.fetchNews(this.state.category);
+        this.fetchNews(this.state.category, this.state.vocabulary.data.url);
     }
 
     componentWillMount() {
+        let lang = this.state.language;
+        this.setState({
+            vocabulary: this.props.Vocabulary[lang],
+        });
+        this.props.setCurrentLang(lang);        
     }
 
-    componentDidUpdate() {
-        console.log('MainView:::', this.state.news);                
+    componentWillUpdate(nextProps, nextState) {
+        if(this.state.language !== nextState.language) {
+            this.fetchNews(this.state.category, nextState.vocabulary.data.url);
+        }
     }
+
     
     onInfiniteScroll() {
-        
         if(this.state.lazyLoad) return;
-        this.fetchNewsOnScroll(this.state.category, this.state.currentPage);
+        this.fetchNewsOnScroll(this.state.category, this.state.currentPage, this.state.vocabulary.data.url);
     }
 
     onRefresh() {
@@ -204,11 +228,19 @@ class MainViews extends React.Component {
         this.fetchNews(this.state.category);
     }
 
+    onChangeLang(lang) {
+        this.setState({
+            language: lang,
+            vocabulary: this.props.Vocabulary[lang]
+        });
+        this.props.setCurrentLang(lang);
+    }
+
     render() {
         if(this.state.news.length > 0) {
                 this.renderDate(this.state.news);        
         }
-        console.log('vocabulary', this.props);
+        console.log('vocabulary', this.state);
         return (
             <Framework7App 
                 themeType="material"
@@ -219,7 +251,14 @@ class MainViews extends React.Component {
             <Views id="Fucking-view">
                 <View id="main-view" navbarThrough dynamicNavbar={true} main url="/">
                     <Pages>
-                        <Page hideBarsOnScroll pullToRefresh onPtrRefresh={this.onRefresh} infiniteScroll onInfinite={this.onInfiniteScroll} data-ptr-distance="200">
+                        <Page 
+                            hideBarsOnScroll 
+                            pullToRefresh 
+                            onPtrRefresh={this.onRefresh} 
+                            infiniteScroll 
+                            onInfinite={this.onInfiniteScroll} 
+                            data-ptr-distance="200"
+                        >
                             <Navbar>
                                 <NavLeft>
                                     <Link icon="icon-Burger icon Icons" openPanel="left"></Link>
@@ -238,7 +277,13 @@ class MainViews extends React.Component {
                     </Pages>
                 </View>
             </Views>
-            {<LeftPanel changeTitle={this.changeTitle} fetchNews={this.fetchNews} />}            
+            <LeftPanel 
+                changeTitle={this.changeTitle}
+                titles={this.state.vocabulary.menu} 
+                onChangeLang={this.onChangeLang} 
+                currentLang={this.state.language} 
+                fetchNews={this.fetchNews} 
+            />        
             </Framework7App>
 
         );
@@ -266,6 +311,9 @@ export default connect(
         },
         setCurrentNews: (news) => {
             dispatch({type: 'SET_CURRENT_NEWS', payload: news})
+        },
+        setCurrentLang: (lang) => {
+            dispatch({type: 'SET_CURRENT_LANG', payload: lang})
         }
     })
 )(MainViews);

@@ -3,20 +3,25 @@ import {Page, ContentBlock, Navbar, ListItem, List, ListItemSwipeoutActions, Lis
 import {FavoritesItem} from '../FavoritesItem/FavoritesItem';
 import {connect} from 'react-redux';
 import IconButton from 'material-ui/IconButton';
+import { store } from '../../store';
 
 
 class FavoritesView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            favorites: props.Favorites
+            favorites: props.Favorites,
+            title: props.Vocabulary[props.Options.currentLang].favoritesView.favorites
         }
     }
 
+    componentDidMount() {
+    }
     
     componentWillReceiveProps(nextProps) {
         this.setState({
-            favorites: nextProps.Favorites
+            favorites: nextProps.Favorites,
+            title: nextProps.Vocabulary[nextProps.Options.currentLang].favoritesView.favorites
         })
     }
 
@@ -36,7 +41,7 @@ class FavoritesView extends React.Component {
                             <IconButton><i className="icon-arrow-black" ></i></IconButton>                                                
                         </a>
                     </NavLeft>
-                    <NavCenter>Избранное</NavCenter>
+                    <NavCenter>{this.state.title}</NavCenter>
                 </Navbar>
                 <ContentBlock>
                     <List>
@@ -50,7 +55,9 @@ class FavoritesView extends React.Component {
 
 export default connect(
     state => ({
-        Favorites: state.Favorites
+        Favorites: state.Favorites,
+        Vocabulary: state.Vocabulary,
+        Options: state.Options
     }),
     dispatch => ({
         onDeleteItem: (idx) => {

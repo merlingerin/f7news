@@ -2,7 +2,8 @@ const initialState = {
     uk_UA: {
         data: {
             today: 'Сьогоднi',
-            yesterday: 'Вчора'
+            yesterday: 'Вчора',
+            url: 'ua'
         },
         menu: {
             news: 'Новини',
@@ -10,20 +11,24 @@ const initialState = {
             emergencies: 'Надзвичайні події',
             lol: 'Lol',
             world: 'Світ',
-            lifstyle: 'Lifstyle',
+            lifestyle: 'Lifstyle',
             sport: 'Спорт',
             showbiz: 'Шоу-бізнес',
             favorites: 'Збережені',
             aboutUs: 'Про нас'
         },
-        favorites: {
+        favoritesView: {
             favorites: 'Збережені'
+        },
+        aboutUsView: {
+            aboutUs: 'ПРО НАС'
         }
     },
     ru_RU: {
         data: {
             today: 'Сегодня',
-            yesterday: 'Вчера'
+            yesterday: 'Вчера',
+            url: 'ru'            
         },
         menu: {
             news: 'Новости',
@@ -31,14 +36,17 @@ const initialState = {
             emergencies: 'Происшествия',
             lol: 'Lol',
             world: 'Мир',
-            lifstyle: 'Lifstyle',
+            lifestyle: 'Lifstyle',
             sport: 'Спорт',
             showbiz: 'Шоу-бизнес',
             favorites: 'Сохранённые',
             aboutUs: 'Про нас'
         },
-        favorites: {
+        favoritesView: {
             favorites: 'Сохранённые'
+        },
+        aboutUsView: {
+            aboutUs: 'ПРО НАС'
         }
     }
 }

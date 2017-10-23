@@ -3,8 +3,8 @@ import {Page, ContentBlock, Navbar, NavLeft, NavCenter, NavRight} from 'framewor
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import {store} from '../../store';
 import {connect} from 'react-redux';
-import Share from '../Share/Share';
 import IconButton from 'material-ui/IconButton';
+// import Share from '../Share/Share';
 
 class NewsView extends React.Component {
     constructor(props) {
@@ -145,7 +145,6 @@ class NewsView extends React.Component {
                             <i className={`icon Icons ${this.state.addedToFavorite ? 'icon-star-black' : 'icon-star-white'}`} ></i> 
                         </a>
                         <a className="navbar-icon icon-only link" onClick={this.handleShare}>
-                            {/* <Share /> */}
                             <i className='icon-share-white' ></i>
                         </a>
                     </NavRight> 

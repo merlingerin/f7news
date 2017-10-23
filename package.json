@@ -20,7 +20,8 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
-    "typeface-roboto": "0.0.41"
+    "typeface-roboto": "0.0.41",
+    "material-ui": "0.19.4"
   },
   "scripts": {
     "start": "react-scripts start",
