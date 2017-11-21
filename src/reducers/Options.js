@@ -2,7 +2,8 @@ const initialState = {
 	bigFont: false,
 	category: 'all',
 	currentNews: {},
-	currentLang: 'ru_RU'
+	currentLang: 'ru_RU',
+	open: false
 }
 
 export default function Options(state = initialState, action) {
@@ -25,10 +26,15 @@ export default function Options(state = initialState, action) {
 			}
 			break;
 		case 'SET_CURRENT_LANG':
-		console.log(action.payload);
+			localStorage.setItem('lang', action.payload);
 			return {
 				...state,
 				currentLang: action.payload
+			}
+		case 'OPEN_MENU':
+			return {
+				...state,
+				open: action.payload
 			}
 		default:
 			return state;

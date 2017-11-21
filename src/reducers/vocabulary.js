@@ -22,7 +22,8 @@ const initialState = {
         },
         aboutUsView: {
             aboutUs: 'ПРО НАС'
-        }
+        },
+        offline: 'Не вдалося завантажити новини'
     },
     ru_RU: {
         data: {
@@ -47,7 +48,8 @@ const initialState = {
         },
         aboutUsView: {
             aboutUs: 'ПРО НАС'
-        }
+        },
+        offline: 'Не удалось загрузить новости'        
     }
 }
 

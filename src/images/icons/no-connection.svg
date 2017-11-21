@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="88px" height="94px" viewBox="0 0 88 94" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon/no connection</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/no-connection">
+            <g id="-g-no-connection">
+                <g id="Icon/no-connection" transform="translate(12.000000, 1.000000)">
+                    <rect id="Rectangle-4" stroke="#E2E2E2" stroke-width="4" x="2" y="36" width="50" height="31"></rect>
+                    <polygon id="Line" fill="#E2E2E2" fill-rule="nonzero" points="31.751709 67.1529254 47.1731608 92.4881677 50.5899551 90.4083799 35.1685032 65.0731376"></polygon>
+                    <polygon id="Line" fill="#E2E2E2" fill-rule="nonzero" transform="translate(13.170832, 78.780653) scale(1, -1) translate(-13.170832, -78.780653) " points="3.75170899 67.1529254 19.1731608 92.4881677 22.5899551 90.4083799 7.16850322 65.0731376"></polygon>
+                    <path d="M52,45.6880613 L52,58.3119387 L62,61.3119387 L62,42.6880613 L52,45.6880613 Z" id="Rectangle-6" stroke="#E2E2E2" stroke-width="4"></path>
+                    <rect id="Rectangle-7" stroke="#E2E2E2" stroke-width="4" x="20" y="30" width="14" height="6"></rect>
+                    <polygon id="Line-2" fill="#E2E2E2" fill-rule="nonzero" points="29 30 29 14 25 14 25 30"></polygon>
+                    <rect id="Rectangle-8" stroke="#E2E2E2" stroke-width="4" x="11" y="50" width="8" height="8"></rect>
+                    <path d="M16.9902412,9.03421775 L19.2774928,11.7951747 C17.7526584,13.0583889 17.7526584,14.9416111 19.2774928,16.2048253 L16.9902412,18.9657822 C13.7346706,16.2687792 13.7346706,11.7312208 16.9902412,9.03421775 Z M13.4770378,4.4959047 L15.6200887,7.3702283 C10.6060843,11.1085918 10.6060843,16.8914082 15.6200887,20.6297717 L13.4770378,23.5040953 C6.54002955,18.3319701 6.54002955,9.66802991 13.4770378,4.4959047 Z M9.91115105,3.55271368e-15 L12.0153678,2.90287355 C3.44194909,9.11751962 3.44194909,18.8824804 12.0153678,25.0971264 L9.91115105,28 C-0.63705035,20.3538859 -0.63705035,7.64611414 9.91115105,3.55271368e-15 Z" id="Combined-Shape" fill="#E2E2E2" fill-rule="nonzero"></path>
+                    <path d="M49.9902412,9.03421775 L52.2774928,11.7951747 C50.7526584,13.0583889 50.7526584,14.9416111 52.2774928,16.2048253 L49.9902412,18.9657822 C46.7346706,16.2687792 46.7346706,11.7312208 49.9902412,9.03421775 Z M46.4770378,4.4959047 L48.6200887,7.3702283 C43.6060843,11.1085918 43.6060843,16.8914082 48.6200887,20.6297717 L46.4770378,23.5040953 C39.5400296,18.3319701 39.5400296,9.66802991 46.4770378,4.4959047 Z M42.911151,3.55271368e-15 L45.0153678,2.90287355 C36.4419491,9.11751962 36.4419491,18.8824804 45.0153678,25.0971264 L42.911151,28 C32.3629497,20.3538859 32.3629497,7.64611414 42.911151,3.55271368e-15 Z" id="Combined-Shape" fill="#E2E2E2" fill-rule="nonzero" transform="translate(43.638746, 14.000000) scale(-1, 1) translate(-43.638746, -14.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

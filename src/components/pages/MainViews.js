@@ -1,4 +1,7 @@
 import React, {PropTypes} from 'react';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';          
 
 /*TEST*/
 import {
@@ -15,7 +18,8 @@ import { View, Navbar, Pages, Page,
 } from 'framework7-react';
 
 import { NewsList } from '../NewsList/NewsList';
-import { LeftPanel } from '../LeftPanel/LeftPanel';
+// import { LeftPanel } from '../LeftPanel/LeftPanel';
+import LeftPanel from '../LeftPanel/LeftPanelUI';
 import {connect} from 'react-redux';
 import {store} from '../../store';
 import {goBack} from 'framework7-redux'
@@ -40,7 +44,10 @@ class MainViews extends React.Component {
             categoryTitle: 'ГЛАВНЫЕ НОВОСТИ',
             maxPage: false,
             loading: true,
-            lazyLoad: false
+            lazyLoad: false,
+            error: false,
+            offline: {status: false, text: 'Не удалось загрузить новости'},
+            open: false
         }
         this.onInfiniteScroll = this.onInfiniteScroll.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
@@ -48,7 +55,15 @@ class MainViews extends React.Component {
         this.changeTitle = this.changeTitle.bind(this);
         this.renderDate = this.renderDate.bind(this);
         this.onChangeLang = this.onChangeLang.bind(this);
+        this.handleToggle = this.handleToggle.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.apllyMenu = this.apllyMenu.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
+
+    handleToggle = () => this.setState({open: !this.state.open});
+    apllyMenu = (open) => this.setState({open: open});
+	handleClose = () => this.setState({open: false});
 
     /*-----------------------------------
     *FETCH NEWS ON LOAD BY CATEGORY
@@ -56,7 +71,8 @@ class MainViews extends React.Component {
     fetchNews(category, lang, cb)  {
         let currentLang = lang || this.state.vocabulary.data.url;
         this.setState({
-            loading: true
+            loading: true,
+            lazyLoad: true
         })
 
         const params = new URLSearchParams();
@@ -68,7 +84,8 @@ class MainViews extends React.Component {
             this.setState({
                 news: res.data.news,
                 category: category,
-                loading: false
+                loading: false,
+                lazyLoad: false
             })
             this.props.onFetchNews(this.state.news)
         !cb ? false : cb();
@@ -76,6 +93,11 @@ class MainViews extends React.Component {
         .then(() => getFramework7().pullToRefreshDone())
         .catch((err) => {
             throw new Error('Can\'t fetch the news.');
+            this.setState({
+                error: true,
+                loading: false,
+                offline: {status: true, text: 'Не удалось загрузить новости'}
+            });
         })
     }
     /*-----------------------------------
@@ -100,7 +122,6 @@ class MainViews extends React.Component {
         axios.post(`http://fakty.ictv.ua/${currentLang}/widgets_api/${category}/`, params)
         .then((res) => {
 
-           console.log([...this.state.news, ...res.data.news]) 
             res.data.news.filter( (item, idx) => {
                 return item.id === this.state.news[0].id ? this.setState({maxPage: true})  : false; 
             })
@@ -120,6 +141,11 @@ class MainViews extends React.Component {
             this.props.onAddNews(this.state.news);
         })
         .catch((err) => {
+            this.setState({
+                error: true,
+                loading: false,
+                offline: {status: true, text: 'Не удалось загрузить новости'}
+            });
             throw new Error('Can\'t load the news on scroll.');
         })
     }
@@ -188,7 +214,7 @@ class MainViews extends React.Component {
                 item.body.time = `${this.state.vocabulary.data.today}, ${hours}:${minutes}`;
             }
             else if (yesterday === newsTime) {
-                item.body.time = `${this.state.vocabulary.data.tommorow}, ${hours}:${minutes}`;            
+                item.body.time = `${this.state.vocabulary.data.yesterday}, ${hours}:${minutes}`;            
             }
             else {
             const itemMonth = month[new Date(item.body.date*1000).getMonth()];
@@ -199,21 +225,54 @@ class MainViews extends React.Component {
     /*-----------------------------------
     *END ./RENDER DATE OF NEWS
     *-------------------------------------*/
+    componentWillMount() {
+        /*================PAINTER STATUSBAR IN APP COLORS==================*/
+        if(window.StatusBar) {
+            window.StatusBar.backgroundColorByHexString("#FF3500");
+        }
+        /*================/.END PAINTER STATUSBAR IN APP COLORS==================*/
+        
+        let lang = '';
+        try {
+            if(localStorage.getItem('lang')) {
+                lang =  localStorage.getItem('lang');       
+                this.setState({
+                    language: lang,
+                    offline: {status: this.state.offline.status, text: this.props.Vocabulary[lang].offline}
+                });
+            } else {
+                lang = this.state.language;
+            }
+        } catch(err) {
+            console.log('Can\'t get(set) a language');
+        }
+        
+        this.setState({
+            vocabulary: this.props.Vocabulary[lang],
+        });
+        this.props.setCurrentLang(lang);
+
+        //CHECK THE INTERNET CONNECTION
+        document.addEventListener("offline", onOffline, false);
+        function onOffline() {
+            this.setState({
+                offline: {status: true, text: this.props.Vocabulary[this.state.language].offline},
+                loading: false
+            })
+        }
+    }
+
     componentDidMount() {
         this.fetchNews(this.state.category, this.state.vocabulary.data.url);
     }
 
-    componentWillMount() {
-        let lang = this.state.language;
-        this.setState({
-            vocabulary: this.props.Vocabulary[lang],
-        });
-        this.props.setCurrentLang(lang);        
-    }
 
     componentWillUpdate(nextProps, nextState) {
         if(this.state.language !== nextState.language) {
             this.fetchNews(this.state.category, nextState.vocabulary.data.url);
+            this.setState({
+                offline: {status: nextState.offline.status, text: this.props.Vocabulary[nextState.language].offline},
+            })
         }
     }
 
@@ -224,7 +283,6 @@ class MainViews extends React.Component {
     }
 
     onRefresh() {
-
         this.fetchNews(this.state.category);
     }
 
@@ -236,11 +294,43 @@ class MainViews extends React.Component {
         this.props.setCurrentLang(lang);
     }
 
+    handleClick() {
+        this.fetchNews('all');
+    }
+
     render() {
         if(this.state.news.length > 0) {
                 this.renderDate(this.state.news);        
         }
-        console.log('vocabulary', this.state);
+
+        screen.orientation.lock('portrait').then(function success() {
+            console.log("Successfully locked the orientation");
+        }, function error(errMsg) {
+            console.log("Error locking the orientation :: " + errMsg);
+        });
+        
+        // if(window.codova !== undefined) {
+        //     console.log('screenOrientation', window.screenOrientation);            
+        // }
+        
+        const renderNews = () => {
+            if(this.state.offline.status) {
+                return (
+                    <div className="no-connection">
+                        <div className="no-connection__container">
+                            <i className="offline-icon"></i>
+                            <span className="no-connection__text">{this.state.offline.text}</span>
+                        </div>
+                    </div>
+                )
+            }
+            if(!this.state.offline.status) {
+               return (
+                    !this.state.loading ? <NewsList setCurrentNews={this.props.setCurrentNews} news={this.state.news} /> : <span className=""></span>
+               ) 
+            }
+        }
+            //View animatePages={false}
         return (
             <Framework7App 
                 themeType="material"
@@ -249,7 +339,7 @@ class MainViews extends React.Component {
                 onRouteChange={route => currentRoute = route}
             >		
             <Views id="Fucking-view">
-                <View id="main-view" navbarThrough dynamicNavbar={true} main url="/">
+                <View id="main-view" main navbarThrough dynamicNavbar={false}  swipeBackPageAnimateShadow={false} swipeBackPageAnimateOpacity={false} url="/"> 
                     <Pages>
                         <Page 
                             hideBarsOnScroll 
@@ -261,10 +351,10 @@ class MainViews extends React.Component {
                         >
                             <Navbar>
                                 <NavLeft>
-                                    <Link icon="icon-Burger icon Icons" openPanel="left"></Link>
+                                    <Link icon="icon-Burger icon Icons" onClick={this.handleToggle} /*openPanel="left"*/></Link>
                                 </NavLeft>
-                                <NavCenter>
-                                    <i className="icon-Logo"></i>
+                                <NavCenter >
+                                    <i onClick={this.handleClick} className="icon-Logo"></i>
                                 </NavCenter>
                                 <NavRight>
                                     <a href="/favorites/" className="navbar-icon icon-only link">
@@ -272,18 +362,23 @@ class MainViews extends React.Component {
                                     </a>
                                 </NavRight>
                             </Navbar>
-                            { !this.state.loading ? <NewsList setCurrentNews={this.props.setCurrentNews} news={this.state.news} /> : <span className=""></span> }
+                            {renderNews()}
+                            {/* !this.state.loading ? <NewsList setCurrentNews={this.props.setCurrentNews} news={this.state.news} /> : <span className=""></span> } */}
                         </Page>
                     </Pages>
                 </View>
             </Views>
-            <LeftPanel 
+            <LeftPanel
+                apllyMenu ={this.apllyMenu}
+                handleClose ={this.handleClose}
+                handleToggle ={this.handleToggle}
+                open={this.state.open}
                 changeTitle={this.changeTitle}
                 titles={this.state.vocabulary.menu} 
                 onChangeLang={this.onChangeLang} 
                 currentLang={this.state.language} 
                 fetchNews={this.fetchNews} 
-            />        
+            />
             </Framework7App>
 
         );

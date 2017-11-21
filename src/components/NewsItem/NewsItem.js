@@ -7,18 +7,20 @@ export const NewsItem = (props) => {
 
     const styles = {
         backgroundImage: `url(`+content.body.linkImg+`)`,
-        backgroundSize: 'cover',
+        backgroundSize: 'cover, 80px',
+        backgroundRepeat: 'no-repeat, no-repeat',
+        backgroundPosition: 'center, center'
     }
     const _handleClick = () => {
         props.setCurrentNews(props);
     }
     const Container = function() {
         return (
-            <div className="img__container" style={styles}>
+            <div className={`img__container ${content.body.linkImg === '' || content.body.linkImg === undefined ? 'no-image' : ''}`} style={styles}>
+                { content.type === 'videos' ? <i className="yt-icon"><i className="trinagular-icon"></i></i> : ''}
             </div>
         )
     }
-    // const context = JSON.stringify(content.body);
     return (
         <div className="Card-container" onClick={_handleClick}>
             {/* <Icon onClick={handleClick} className="save-news ictv-icon" ></Icon>         */}

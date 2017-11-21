@@ -3,19 +3,31 @@ import {Page, ContentBlock, Navbar, NavLeft, NavCenter} from 'framework7-react';
 import Share from '../Share/Share';
 import IconButton from 'material-ui/IconButton';
 import { connect } from 'react-redux';
+import AboutUsPopUp from '../AboutUsPopUp/AboutUsPopUp';
 
 class About extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: props.Vocabulary[props.Options.currentLang].aboutUsView.aboutUs            
+            title: props.Vocabulary[props.Options.currentLang].aboutUsView.aboutUs,
         }
+    }
+    componentWillMount() {
+ 
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             title: this.props.Vocabulary[nextProps.Options.currentLang].aboutUsView.aboutUs
         })
+    }
+
+    linkHandleClickFacebook() {
+        window.cordova.InAppBrowser.open('https://www.facebook.com/Fakty.ICTV/', '_system', 'location=yes');
+    }    
+
+    linkHandleClickTwitter() {
+        window.cordova.InAppBrowser.open('https://twitter.com/ictv_fakty', '_system', 'location=yes'); 
     }
 
     render() {
@@ -42,12 +54,17 @@ class About extends React.Component {
                             </ul>
                     </ContentBlock>
                     <ContentBlock className="aboutUs__footer">
-                            <p className="confidintation">Політика конфіденційності</p>
-                            
+                            <a href="#" data-popup=".popup-about" className="confidintation open-popup">Політика конфіденційності</a>
+                            <a href="#" onClick={this.linkHandleClickTwitter} className="sc-icon sc-twitter"></a>
+                            <a href="#" onClick={this.linkHandleClickFacebook} className="sc-icon sc-facebook"></a>
+                            <p className="aboutUs__version">Версія додатку: 1.1.1.1</p>
                     </ContentBlock>
                     <ContentBlock className="aboutUs__footer">
-                            {/* <a href=""> */}
+                            
                     </ContentBlock>
+                    <ContentBlock className="aboutUs__version">
+                    </ContentBlock>
+                    <AboutUsPopUp />
                 </Page>
         );
     }

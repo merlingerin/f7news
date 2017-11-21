@@ -45,7 +45,7 @@ export const LeftPanel = (props, context) => {
 	let activeRu = props.currentLang === 'ru_RU' ? 'active' : '';
 	let activeUa = props.currentLang === 'uk_UA' ? 'active' : '';
 	let menuTitles = props.titles;
-	console.log('RPOPS:::', props);
+	console.log('props.currentLang:::', props.currentLang);
 	return (
 		<Panel left reveal layout="dark" >
 			<View id="left-panel-view" navbarThrough >

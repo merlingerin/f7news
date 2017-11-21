@@ -27,12 +27,23 @@ class FavoritesView extends React.Component {
 
     renderNews() {
         return this.state.favorites.map((item ,idx) => {
-                    let parsedItem = JSON.parse(item);
-                    return <FavoritesItem key={parsedItem.id} content={parsedItem} onDelete={this.props.onDeleteItem} />;                              
+                    return <FavoritesItem key={item.id} content={item} onDelete={this.props.onDeleteItem} />;                              
                 })
     }
 
     render() {
+
+        const emptyListTemplate = () => {
+            return (
+                <div className="no-favorites">
+                    <div className="no-favorites__container">
+                        <i className="no-favorites-icon"></i>
+                        <span className="no-favorites__text">Збережених новин немає</span>
+                    </div>
+                </div>
+            )
+        }
+
         return (
             <Page className="FavoritesView" hideBarsOnScroll>
                 <Navbar sliding>
@@ -45,7 +56,7 @@ class FavoritesView extends React.Component {
                 </Navbar>
                 <ContentBlock>
                     <List>
-                        { this.state.favorites.length > 0 ? this.renderNews() : <h3 className="empty-list__title">Список пуст.</h3> }
+                        { this.state.favorites.length > 0 ? this.renderNews() : emptyListTemplate() }
                     </List>
                 </ContentBlock>
             </Page>
